@@ -12,7 +12,7 @@ using VirtualHoftalon_Server.Models;
 namespace VirtualHoftalon_Server.Migrations
 {
     [DbContext(typeof(ModelsContext))]
-    [Migration("20240413192856_Initial")]
+    [Migration("20240413201521_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -106,7 +106,7 @@ namespace VirtualHoftalon_Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoomNumber")
+                    b.Property<int?>("RoomNumber")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -122,10 +122,10 @@ namespace VirtualHoftalon_Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("PatientId")
+                    b.Property<int?>("PatientId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SectorId")
+                    b.Property<int?>("SectorId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -139,26 +139,20 @@ namespace VirtualHoftalon_Server.Migrations
 
             modelBuilder.Entity("VirtualHoftalon_Server.Models.Doctor", b =>
                 {
-                    b.HasOne("VirtualHoftalon_Server.Models.Sector", "Sector")
+                    b.HasOne("VirtualHoftalon_Server.Models.Sector", null)
                         .WithOne("Doctor")
                         .HasForeignKey("VirtualHoftalon_Server.Models.Doctor", "SectorId");
-
-                    b.Navigation("Sector");
                 });
 
             modelBuilder.Entity("VirtualHoftalon_Server.Models.SectorPatient", b =>
                 {
                     b.HasOne("VirtualHoftalon_Server.Models.Patient", "Patient")
                         .WithMany("SectorPatients")
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PatientId");
 
                     b.HasOne("VirtualHoftalon_Server.Models.Sector", "Sector")
                         .WithMany("SectorPatients")
-                        .HasForeignKey("SectorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SectorId");
 
                     b.Navigation("Patient");
 
@@ -172,8 +166,7 @@ namespace VirtualHoftalon_Server.Migrations
 
             modelBuilder.Entity("VirtualHoftalon_Server.Models.Sector", b =>
                 {
-                    b.Navigation("Doctor")
-                        .IsRequired();
+                    b.Navigation("Doctor");
 
                     b.Navigation("SectorPatients");
                 });

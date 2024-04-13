@@ -6,11 +6,11 @@ namespace VirtualHoftalon_Server.Models;
 public class Sector
 {
 
-    public int Id { get; set; }
+    public int? Id { get; set; }
     [Required]
-    public string Name { get; set;}
-    public int RoomNumber { get; set;}
-    public Doctor Doctor { get; set; }
+    public string? Name { get; set;}
+    public int? RoomNumber { get; set;}
+    public Doctor? Doctor { get; set; }
     public ICollection<SectorPatient> SectorPatients { get; set; }
 
 }

@@ -1,24 +1,25 @@
 using Microsoft.AspNetCore.Mvc;
-using VirtualHoftalon_Server.Repositories.Interfaces;
+using VirtualHoftalon_Server.Services.Interfaces;
 
 namespace VirtualHoftalon_Server.Controller;
 
-[Route("api/doctors")]
-[ApiController]
-public class DoctorController : ControllerBase
+public class DoctorController : Microsoft.AspNetCore.Mvc.Controller
 {
 
-    private readonly IDoctorRepository _doctorRepository;
+    private readonly IDoctorService _doctorService;
+    private readonly ILogger<DoctorController> _logger;
 
-    public DoctorController(IDoctorRepository doctorRepository)
+    public DoctorController(IDoctorService doctorService, ILogger<DoctorController> logger)
     {
-        _doctorRepository = doctorRepository;
+        _doctorService = doctorService;
+        _logger = logger;
     }
 
     [HttpGet]
+    [Route("/doctors")]
     public IActionResult GetAll()
     {
-        var doctors = _doctorRepository.GetDoctors();
-        return Ok(doctors);
+        _logger.LogInformation("Controller acessado!");
+        return Ok(_doctorService.GetAll());
     }
 }
