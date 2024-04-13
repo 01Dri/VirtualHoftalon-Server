@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using VirtualHoftalon_Server.Models.Dto;
 using VirtualHoftalon_Server.Services.Interfaces;
 
 namespace VirtualHoftalon_Server.Controller;
@@ -19,7 +21,19 @@ public class DoctorController : Microsoft.AspNetCore.Mvc.Controller
     [Route("/doctors")]
     public IActionResult GetAll()
     {
-        _logger.LogInformation("Controller acessado!");
         return Ok(_doctorService.GetAll());
+    }
+    
+    [HttpPost]
+    [Route("/doctors")]
+    public IActionResult SaveDoctor([FromBody] DoctorRequestDTO doctorRequestDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var result  = _doctorService.SaveDoctor(doctorRequestDto);
+        return Ok(result);
     }
 }

@@ -16,4 +16,11 @@ public class DoctorRepository : IDoctorRepository
     {
         return _context.Doctors.ToList();
     }
+
+    public Doctor SaveDoctor(Doctor doctor)
+    {
+        _context.Doctors.Add(doctor);
+        _context.SaveChanges();
+        return doctor;
+    }
 }

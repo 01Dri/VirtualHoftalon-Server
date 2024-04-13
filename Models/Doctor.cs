@@ -12,4 +12,14 @@ public class Doctor
     public string? Name { get; set; }
     [ForeignKey("Sector")]
     public int? SectorId { get; set; }
+
+    public Sector Sector { get; set; }
+
+    public Doctor(int? id, string? name, int? sectorId)
+    {
+        Id = id;
+        Name = name;
+        SectorId = sectorId;
+    }
+
 }

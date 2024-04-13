@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using VirtualHoftalon_Server.Exceptions;
 using VirtualHoftalon_Server.Models;
 using VirtualHoftalon_Server.Repositories;
 using VirtualHoftalon_Server.Repositories.Interfaces;
@@ -14,10 +15,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ModelsContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddScoped<ISectorRepository, SectorRepository>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
 
 var app = builder.Build();
+app.UseErrorHandlerMiddleware();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
