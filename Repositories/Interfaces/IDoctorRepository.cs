@@ -9,4 +9,6 @@ public interface IDoctorRepository
 
     Doctor GetDoctorById(int id);
 
+    Doctor GetDoctorByName(string doctorName);
+    Doctor UpdateDoctor(Doctor doctorToUpdate);
 }

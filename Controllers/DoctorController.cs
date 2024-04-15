@@ -36,4 +36,17 @@ public class DoctorController : Microsoft.AspNetCore.Mvc.Controller
         var result  = _doctorService.SaveDoctor(doctorRequestDto);
         return Ok(result);
     }
+    
+    [HttpPatch]
+    [Route("/doctors/{id}")]
+    public IActionResult UpdateDoctor(int id, [FromBody] DoctorRequestDTO doctorRequestDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var result  = _doctorService.UpdateDoctorById(id, doctorRequestDto);
+        return Ok(result);
+    }
 }

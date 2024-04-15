@@ -6,7 +6,8 @@ public interface IDoctorService
 {
     List<DoctorResponseDTO> GetAll();
     DoctorResponseDTO SaveDoctor(DoctorRequestDTO doctorRequestDto);
-
     DoctorResponseDTO GetOneById(int id);
+
+    DoctorResponseDTO UpdateDoctorById(int id, DoctorRequestDTO doctor);
 
 }

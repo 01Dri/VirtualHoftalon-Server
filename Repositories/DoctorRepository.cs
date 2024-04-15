@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using VirtualHoftalon_Server.Exceptions;
 using VirtualHoftalon_Server.Models;
 using VirtualHoftalon_Server.Repositories.Interfaces;
@@ -28,5 +29,18 @@ public class DoctorRepository : IDoctorRepository
     public Doctor GetDoctorById(int id)
     {
         return _context.Doctors.Find(id);
+    }
+
+    public Doctor GetDoctorByName(string doctorName)
+    {
+        return _context.Doctors.FirstOrDefault(d => d.Name == doctorName);
+    }
+
+    public Doctor UpdateDoctor(Doctor doctorToUpdate)
+    {
+        // Marca a entidade como modificada, dessa forma, o EF vai saber que ela precisa ser atualizada no banco com o metodo "SaveChanges"
+        _context.Entry(doctorToUpdate).State = EntityState.Modified;
+        _context.SaveChanges();
+        return doctorToUpdate;
     }
 }

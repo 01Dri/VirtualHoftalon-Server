@@ -39,4 +39,14 @@ public class DoctorService : IDoctorService {
         Doctor doctorById = _doctorRepository.GetDoctorById(id);
         return new DoctorResponseDTO(doctorById.Id, doctorById.Name);
     }
+
+
+    public DoctorResponseDTO UpdateDoctorById(int id, DoctorRequestDTO doctorRequestDto)
+    {
+        
+        Doctor doctorToUpdate = _doctorRepository.GetDoctorById(id) ?? throw new NotFoundDoctorException("Not found Doctor");
+        doctorToUpdate.Name = doctorRequestDto.Name;
+        doctorToUpdate = _doctorRepository.UpdateDoctor(doctorToUpdate);
+        return new DoctorResponseDTO(doctorToUpdate.Id, doctorToUpdate.Name);
+    }
 }
