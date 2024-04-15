@@ -31,6 +31,12 @@ public class ErrorHandlerMiddleware
         {
             statusCode = StatusCodes.Status404NotFound;
         }
+        
+        if (exception is NotFoundDoctorException)
+        {
+            statusCode = StatusCodes.Status404NotFound;
+        }
+
         // Adicione outras verificações de exceção conforme necessário
 
         context.Response.ContentType = "application/json";

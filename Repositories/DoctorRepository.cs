@@ -1,3 +1,4 @@
+using VirtualHoftalon_Server.Exceptions;
 using VirtualHoftalon_Server.Models;
 using VirtualHoftalon_Server.Repositories.Interfaces;
 
@@ -22,5 +23,10 @@ public class DoctorRepository : IDoctorRepository
         _context.Doctors.Add(doctor);
         _context.SaveChanges();
         return doctor;
+    }
+
+    public Doctor GetDoctorById(int id)
+    {
+        return _context.Doctors.Find(id);
     }
 }

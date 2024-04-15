@@ -6,4 +6,7 @@ public interface ISectorRepository
 {
     Sector? GetSectorById(int id);
 
+    Sector SaveSector(Sector sector);
+
+    IEnumerable<Sector> GetAll();
 }

@@ -10,16 +10,15 @@ public class Doctor
     [Required(ErrorMessage = "O campo Name é obrigatório.")]
     [MaxLength(100, ErrorMessage = "O campo Name deve ter no máximo 100 caracteres.")]
     public string? Name { get; set; }
-    [ForeignKey("Sector")]
-    public int? SectorId { get; set; }
 
-    public Sector Sector { get; set; }
+    public Doctor()
+    {
+        
+    }
 
-    public Doctor(int? id, string? name, int? sectorId)
+    public Doctor(int? id, string? name)
     {
         Id = id;
         Name = name;
-        SectorId = sectorId;
     }
-
 }

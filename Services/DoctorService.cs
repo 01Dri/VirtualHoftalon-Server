@@ -23,20 +23,20 @@ public class DoctorService : IDoctorService {
     public List<DoctorResponseDTO> GetAll()
     {
         return _doctorRepository.GetDoctors()
-            .Select(doctor => new DoctorResponseDTO(doctor.Id, doctor.SectorId, doctor.Name))
+            .Select(doctor => new DoctorResponseDTO(doctor.Id, doctor.Name))
             .ToList();
     }
 
     public DoctorResponseDTO SaveDoctor(DoctorRequestDTO doctorRequestDto)
     {
-        Sector? sector = _sectorRepository.GetSectorById(doctorRequestDto.SectorId);
-        if (sector == null)
-        {
-            throw new NotFoundSectorException("Not found Sector!");
-        }
-
-        Doctor doctor = new Doctor(null, doctorRequestDto.Name, doctorRequestDto.SectorId);
+        Doctor doctor = new Doctor(null, doctorRequestDto.Name);
         doctor = _doctorRepository.SaveDoctor(doctor);
-        return new DoctorResponseDTO(doctor.Id, doctor.SectorId, doctor.Name);
+        return new DoctorResponseDTO(doctor.Id, doctor.Name);
+    }
+
+    public DoctorResponseDTO GetOneById(int id)
+    {
+        Doctor doctorById = _doctorRepository.GetDoctorById(id);
+        return new DoctorResponseDTO(doctorById.Id, doctorById.Name);
     }
 }

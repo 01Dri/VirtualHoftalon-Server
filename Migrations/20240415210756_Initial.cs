@@ -12,6 +12,19 @@ namespace VirtualHoftalon_Server.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Doctors",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Doctors", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Patients",
                 columns: table => new
                 {
@@ -37,30 +50,18 @@ namespace VirtualHoftalon_Server.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RoomNumber = table.Column<int>(type: "int", nullable: true)
+                    RoomNumber = table.Column<int>(type: "int", nullable: true),
+                    DoctorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sectors", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Doctors",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    SectorId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Doctors", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Doctors_Sectors_SectorId",
-                        column: x => x.SectorId,
-                        principalTable: "Sectors",
-                        principalColumn: "Id");
+                        name: "FK_Sectors_Doctors_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "Doctors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -88,13 +89,6 @@ namespace VirtualHoftalon_Server.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Doctors_SectorId",
-                table: "Doctors",
-                column: "SectorId",
-                unique: true,
-                filter: "[SectorId] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_SectorPatients_PatientId",
                 table: "SectorPatients",
                 column: "PatientId");
@@ -103,14 +97,16 @@ namespace VirtualHoftalon_Server.Migrations
                 name: "IX_SectorPatients_SectorId",
                 table: "SectorPatients",
                 column: "SectorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sectors_DoctorId",
+                table: "Sectors",
+                column: "DoctorId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Doctors");
-
             migrationBuilder.DropTable(
                 name: "SectorPatients");
 
@@ -119,6 +115,9 @@ namespace VirtualHoftalon_Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "Sectors");
+
+            migrationBuilder.DropTable(
+                name: "Doctors");
         }
     }
 }
