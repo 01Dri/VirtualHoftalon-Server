@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using VirtualHoftalon_Server.Exceptions;
 using VirtualHoftalon_Server.Models;
+using VirtualHoftalon_Server.Pattern;
 using VirtualHoftalon_Server.Repositories;
 using VirtualHoftalon_Server.Repositories.Interfaces;
 using VirtualHoftalon_Server.Services;
@@ -17,8 +18,14 @@ builder.Services.AddDbContext<ModelsContext>(options => options.UseSqlServer(con
 
 builder.Services.AddScoped<ISectorRepository, SectorRepository>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
+builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+builder.Services.AddScoped<IPatientBuilder, PatientBuilder>();
+
+
 builder.Services.AddScoped<ISectorService, SectorService>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
+builder.Services.AddScoped<IPatientService, PatientService>();
+
 
 var app = builder.Build();
 app.UseErrorHandlerMiddleware();

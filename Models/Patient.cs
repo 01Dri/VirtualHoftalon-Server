@@ -6,7 +6,7 @@ namespace VirtualHoftalon_Server.Models;
 public class Patient
 {
     
-    public int Id { get; set; }
+    public int? Id { get; set; }
 
     [Required(ErrorMessage = "O campo Name é obrigatório.")]
     [MaxLength(100, ErrorMessage = "O campo Name deve ter no máximo 100 caracteres.")]
@@ -41,7 +41,7 @@ public class Patient
         
     }
 
-    public Patient(int id, string name, string phoneNumber, string cpf, string rg, string email, DateTime dateBirth, ClassificationPatient classificationPatient)
+    public Patient(int? id, string name, string phoneNumber, string cpf, string rg, string email, DateTime dateBirth, ClassificationPatient classificationPatient)
     {
         Id = id;
         Name = name;
