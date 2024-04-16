@@ -36,7 +36,7 @@ public class DoctorService : IDoctorService {
 
     public DoctorResponseDTO GetOneById(int id)
     {
-        Doctor doctorById = _doctorRepository.GetDoctorById(id);
+        Doctor doctorById = _doctorRepository.GetDoctorById(id) ?? throw new NotFoundDoctorException("Not found Doctor!");
         return new DoctorResponseDTO(doctorById.Id, doctorById.Name);
     }
 
@@ -48,5 +48,11 @@ public class DoctorService : IDoctorService {
         doctorToUpdate.Name = doctorRequestDto.Name;
         doctorToUpdate = _doctorRepository.UpdateDoctor(doctorToUpdate);
         return new DoctorResponseDTO(doctorToUpdate.Id, doctorToUpdate.Name);
+    }
+
+    public bool DeleteDoctorById(int id)
+    {
+        Doctor doctor = _doctorRepository.GetDoctorById(id) ?? throw new NotFoundDoctorException("Not found Doctor!");
+        return _doctorRepository.DeleteDoctor(doctor);
     }
 }

@@ -10,6 +10,7 @@ public class SectorService : ISectorService
 {
     private readonly ISectorRepository _sectorRepository;
     private readonly IDoctorRepository _doctorRepository;
+    private const string NotFoundMessage = "Not found Sector!";
 
     public SectorService(ISectorRepository sectorRepository, IDoctorRepository doctorRepository)
     {
@@ -20,7 +21,7 @@ public class SectorService : ISectorService
 
     public SectorResponseDTO SaveSector(SectorRequestDTO sectorRequestDto)
     {
-        Doctor doctorEntity = _doctorRepository.GetDoctorById(sectorRequestDto.DoctorId);
+        Doctor doctorEntity = _doctorRepository.GetDoctorById(sectorRequestDto.DoctorId) ?? throw new NotFoundDoctorException("Not found Doctor!");
         Sector sectorCreated = new Sector(null, sectorRequestDto.Name, sectorRequestDto.RoomNumber);
         sectorCreated.doctor = doctorEntity;
         sectorCreated = _sectorRepository.SaveSector(sectorCreated);
@@ -35,12 +36,43 @@ public class SectorService : ISectorService
 
     public SectorResponseDTO GetOneById(int id)
     {
-        Sector sectorById = _sectorRepository.GetSectorById(id);
-        if (sectorById == null)
-        {
-            throw new NotFoundSectorException("Not found Sector!");
-        }
-        
+        Sector sectorById = _sectorRepository.GetSectorById(id) ?? throw new NotFoundSectorException(NotFoundMessage); 
         return new SectorResponseDTO(sectorById.Id, sectorById.Name, sectorById.RoomNumber,sectorById.doctor);
     }
+
+    public SectorResponseDTO UpdateById(int id, SectorUpdateRequestDTO sectorRequestDto)
+    {
+        Sector sectorById = _sectorRepository.GetSectorById(id) ?? throw new NotFoundSectorException(NotFoundMessage);
+        sectorById = UpdateSectorAttributes(sectorRequestDto, sectorById);
+        sectorById = _sectorRepository.UpdateSector(sectorById);
+        return new SectorResponseDTO(sectorById.Id, sectorById.Name, sectorById.RoomNumber, sectorById.doctor);
+    }
+
+    public void DeleteById(int id)
+    {
+        Sector sectorById = _sectorRepository.GetSectorById(id) ?? throw new NotFoundSectorException(NotFoundMessage);
+        _sectorRepository.Delete(sectorById);
+    }
+
+    private Sector UpdateSectorAttributes(SectorUpdateRequestDTO sectorUpdateRequestDto, Sector sector)
+    {
+        if (sectorUpdateRequestDto.Name == null && sectorUpdateRequestDto.RoomNumber == null)
+        {
+            throw new InvalidArgumentsUpdateSectorException("Arguments to update can't be null!. Please put some of these attributes:" +
+                                                            "Name, RoomNumber");
+        }
+        if (sectorUpdateRequestDto.Name != null)
+        {
+            sector.Name = sectorUpdateRequestDto.Name;
+        }
+
+        if (sectorUpdateRequestDto.RoomNumber != null)
+        {
+            sector.RoomNumber = sectorUpdateRequestDto.RoomNumber;
+        }
+
+        return sector;
+
+    }
+
 }

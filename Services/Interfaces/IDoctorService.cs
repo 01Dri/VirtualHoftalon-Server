@@ -10,4 +10,6 @@ public interface IDoctorService
 
     DoctorResponseDTO UpdateDoctorById(int id, DoctorRequestDTO doctor);
 
+    bool DeleteDoctorById(int id);
+
 }

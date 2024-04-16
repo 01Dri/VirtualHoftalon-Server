@@ -35,8 +35,22 @@ public class Patient
 
     [Required(ErrorMessage = "O campo ClassificationPatient é obrigatório.")]
     public ClassificationPatient ClassificationPatient { get; set; }
-    
-    public ICollection<SectorPatient> SectorPatients { get; set; }
 
+    public Patient()
+    {
+        
+    }
+
+    public Patient(int id, string name, string phoneNumber, string cpf, string rg, string email, DateTime dateBirth, ClassificationPatient classificationPatient)
+    {
+        Id = id;
+        Name = name;
+        PhoneNumber = phoneNumber;
+        Cpf = cpf;
+        Rg = rg;
+        Email = email;
+        DateBirth = dateBirth;
+        ClassificationPatient = classificationPatient;
+    }
 }
 

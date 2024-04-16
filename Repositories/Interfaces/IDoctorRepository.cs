@@ -11,4 +11,5 @@ public interface IDoctorRepository
 
     Doctor GetDoctorByName(string doctorName);
     Doctor UpdateDoctor(Doctor doctorToUpdate);
+    bool DeleteDoctor(Doctor doctor);
 }

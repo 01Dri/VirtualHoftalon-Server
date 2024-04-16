@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using VirtualHoftalon_Server.Models;
 using VirtualHoftalon_Server.Models.Dto.Sector;
 using VirtualHoftalon_Server.Services.Interfaces;
 
@@ -42,5 +41,22 @@ public class SectorController : Microsoft.AspNetCore.Mvc.Controller
         Console.WriteLine($"DOCTOR ID: {resultSector.doctor}");
         return Ok(resultSector);
     }
+
+    [HttpPatch]
+    [Route("/sectors/{id}")]
+    public IActionResult UpdateSector(int id, [FromBody] SectorUpdateRequestDTO sectorUpdateRequestDto)
+    {
+        return Ok(_sectorService.UpdateById(id, sectorUpdateRequestDto));
+    }
+
+    [HttpDelete]
+    [Route("/sectors/{id}")]
+    public IActionResult DeleteById(int id)
+    {
+        _sectorService.DeleteById(id);
+        return NoContent();
+    }
+    
+
 
 }

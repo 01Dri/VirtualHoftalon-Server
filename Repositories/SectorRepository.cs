@@ -33,4 +33,19 @@ public class SectorRepository : ISectorRepository
     {
         return _modelsContext.Sectors.Include(s => s.doctor).ToList();
     }
+
+    public Sector UpdateSector(Sector sectorById)
+    {
+        // Marca a entidade como modificada, dessa forma, o EF vai saber que ela precisa ser atualizada no banco com o metodo "SaveChanges"
+        _modelsContext.Entry(sectorById).State = EntityState.Modified;
+        _modelsContext.SaveChanges();
+        return sectorById;
+    }
+
+    public void Delete(Sector sectorById)
+    {
+        _modelsContext.Sectors.Remove(sectorById);
+        _modelsContext.SaveChanges();
+
+    }
 }

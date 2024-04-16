@@ -36,6 +36,11 @@ public class ErrorHandlerMiddleware
         {
             statusCode = StatusCodes.Status404NotFound;
         }
+        
+        if (exception is InvalidArgumentsUpdateSectorException)
+        {
+            statusCode = StatusCodes.Status400BadRequest;
+        }
 
         // Adicione outras verificações de exceção conforme necessário
 

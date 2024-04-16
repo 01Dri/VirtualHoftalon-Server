@@ -11,4 +11,8 @@ public interface ISectorService
 
     SectorResponseDTO GetOneById(int id);
 
+    SectorResponseDTO UpdateById(int id, SectorUpdateRequestDTO sectorRequestDto);
+
+    void DeleteById(int id);
+
 }

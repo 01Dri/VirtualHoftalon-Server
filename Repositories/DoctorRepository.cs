@@ -43,4 +43,11 @@ public class DoctorRepository : IDoctorRepository
         _context.SaveChanges();
         return doctorToUpdate;
     }
+
+    public bool DeleteDoctor(Doctor doctor)
+    {
+        _context.Doctors.Remove(doctor);
+        _context.SaveChanges();
+        return true;
+    }
 }
