@@ -1,4 +1,5 @@
 using VirtualHoftalon_Server.Enums;
+using VirtualHoftalon_Server.Exceptions;
 using VirtualHoftalon_Server.Models;
 using VirtualHoftalon_Server.Models.Dto.Patient;
 using VirtualHoftalon_Server.Pattern;
@@ -24,7 +25,6 @@ public class PatientService : IPatientService
         Console.WriteLine(patient.ToString());
 
         Patient patientToSave = _patientBuilder
-            .WithId(null)
             .WithName(patient.Name)
             .WithClassification(ParseStringToEnum(patient.Classification))
             .WithCpf(patient.Cpf)
@@ -40,12 +40,14 @@ public class PatientService : IPatientService
 
     public IEnumerable<PatientResponseDTO> GetAll()
     {
-        throw new NotImplementedException();
+        return this._patientRepository.GetPatients().Select(p => this.toResponseDTO(p)).ToList();
+
     }
 
     public PatientResponseDTO GetOneById(int id)
     {
-        throw new NotImplementedException();
+        Patient patient = _patientRepository.GetPatientById(id) ?? throw new NotFoundPatientException("Not found Patient!");
+        return toResponseDTO(patient);
     }
 
     public PatientResponseDTO UpdateById(int id, PatientRequestDTO patient)

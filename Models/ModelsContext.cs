@@ -25,6 +25,15 @@ public class ModelsContext : DbContext
         modelBuilder.Entity<Patient>(patient =>
         {
             patient.HasKey(k => k.Id);
+            patient.HasIndex(p => p.Cpf)
+                .IsUnique();
+            
+            patient.HasIndex(p => p.Rg)
+                .IsUnique();
+            
+            patient.HasIndex(p => p.Email)
+                .IsUnique();
+
         });
         modelBuilder.Entity<Sector>(sector =>
         {

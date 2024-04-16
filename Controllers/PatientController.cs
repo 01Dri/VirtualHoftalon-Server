@@ -26,4 +26,18 @@ public class PatientController : Microsoft.AspNetCore.Mvc.Controller
         return Ok(this._patientService.SavePatient(patientRequestDto));
 
     }
+    
+    [HttpGet]
+    [Route("/patients")]
+    public IActionResult GetAllPatients()
+    {
+        return Ok(this._patientService.GetAll());
+    }
+    
+    [HttpGet]
+    [Route("/patients/{id}")]
+    public IActionResult GetPatientById(int id)
+    {
+        return Ok(this._patientService.GetOneById(id));
+    }
 }

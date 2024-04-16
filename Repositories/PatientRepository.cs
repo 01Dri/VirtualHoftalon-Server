@@ -1,4 +1,6 @@
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using VirtualHoftalon_Server.Exceptions;
 using VirtualHoftalon_Server.Models;
 using VirtualHoftalon_Server.Repositories.Interfaces;
 
@@ -21,9 +23,25 @@ public class PatientRepository : IPatientRepository
 
     public Patient SavePatient(Patient patient)
     {
-        _context.Patients.Add(patient);
-        _context.SaveChanges();
-        return patient;
+        try
+        {
+            _context.Patients.Add(patient);
+            _context.SaveChanges();
+            return patient;
+        }
+        catch (DbUpdateException ex)
+        {
+            {
+                var innerException = ex.InnerException as SqlException;
+                if (innerException != null &&
+                    innerException.Number == 2601) // Número do erro para violação de chave única
+                {
+                    throw new UniqueConstrangeException("Chave unica violada!");
+                }
+
+                throw new Exception(ex.Message);
+            }
+        }
     }
 
     public Patient GetPatientById(int id)
