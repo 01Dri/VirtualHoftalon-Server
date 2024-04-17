@@ -40,4 +40,20 @@ public class PatientController : Microsoft.AspNetCore.Mvc.Controller
     {
         return Ok(this._patientService.GetOneById(id));
     }
+    
+    [HttpPatch]
+    [Route("/patients/{id}")]
+    public IActionResult UpdatePatientById(int id, [FromBody] PatientUpdateRequestDTO patientUpdateRequestDto)
+    {
+        return Ok(this._patientService.UpdateById(id, patientUpdateRequestDto));
+    }
+    
+    [HttpDelete]
+    [Route("/patients/{id}")]
+    public IActionResult DeleteById(int id)
+    {
+        this._patientService.DeleteById(id);
+        return NoContent();
+    }
+
 }

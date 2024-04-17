@@ -10,7 +10,7 @@ public interface IPatientService
 
     PatientResponseDTO GetOneById(int id);
 
-    PatientResponseDTO UpdateById(int id, PatientRequestDTO patient);
+    PatientResponseDTO UpdateById(int id, PatientUpdateRequestDTO patient);
 
     void DeleteById(int id);
 }

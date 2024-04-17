@@ -1,3 +1,4 @@
+using System.Reflection;
 using VirtualHoftalon_Server.Enums;
 using VirtualHoftalon_Server.Exceptions;
 using VirtualHoftalon_Server.Models;
@@ -22,7 +23,6 @@ public class PatientService : IPatientService
 
     public PatientResponseDTO SavePatient(PatientRequestDTO patient)
     {
-        Console.WriteLine(patient.ToString());
 
         Patient patientToSave = _patientBuilder
             .WithName(patient.Name)
@@ -50,14 +50,66 @@ public class PatientService : IPatientService
         return toResponseDTO(patient);
     }
 
-    public PatientResponseDTO UpdateById(int id, PatientRequestDTO patient)
+    public PatientResponseDTO UpdateById(int id, PatientUpdateRequestDTO patient)
     {
-        throw new NotImplementedException();
+        Patient patientToUpdate = _patientRepository.GetPatientById(id) ?? throw new NotFoundPatientException("Not found Patient!");
+        patientToUpdate = this.UpdatePatient(patient, patientToUpdate);
+        patientToUpdate = _patientRepository.UpdatePatient(patientToUpdate);
+        return this.toResponseDTO(patientToUpdate);
     }
+
+    private Patient UpdatePatient(PatientUpdateRequestDTO dto, Patient entity)
+    {
+
+        this.CheckIfAllPropertiesIsNull(dto);
+
+        PropertyInfo[] dtoProperties = dto.GetType().GetProperties();
+        foreach (var dtoProperty in dtoProperties)
+        {
+            var dtoValue = dtoProperty.GetValue(dto);
+            if (dtoValue != null)
+            {
+                PropertyInfo entityProperty = entity.GetType().GetProperty(dtoProperty.Name);
+                if (entityProperty != null && entityProperty.CanWrite)
+                {
+                    entityProperty.SetValue(entity, dtoValue);
+                }
+            }
+        }
+
+        return entity;
+
+    }
+    private void CheckIfAllPropertiesIsNull(PatientUpdateRequestDTO dto)
+    {
+        PropertyInfo[] tests = dto.GetType().GetProperties();
+        
+        // Conta a quantidade de propriedades de um objeto, porém removendo 1,
+        // pois no for abaixo, o valor sempre começa por zero
+        // Ex: amountProperties = 7, mas no for começa por zero, resultando em 6
+        int amountProperties = tests.Length - 1; 
+        int countNullProperties = 0;
+        foreach (var dtoProperty in tests)
+        {
+            if (dtoProperty.GetValue(dto) == null)
+            {
+                countNullProperties++;
+            }
+
+            if (countNullProperties == amountProperties)
+            {
+                throw new PatientArgumentsInvalidException("Arguments to update Patient can't be null!");
+
+            }
+            
+        }
+    }
+
 
     public void DeleteById(int id)
     {
-        throw new NotImplementedException();
+        Patient patientToRemove = _patientRepository.GetPatientById(id) ?? throw new NotFoundPatientException("Not found Patient!");
+        this._patientRepository.DeletePatient(patientToRemove);
     }
 
     private ClassificationPatient ParseStringToEnum(string value)
