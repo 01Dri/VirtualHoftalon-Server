@@ -65,38 +65,71 @@ namespace VirtualHoftalon_Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SectorPatients",
+                name: "Appointments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SectorId = table.Column<int>(type: "int", nullable: true),
-                    PatientId = table.Column<int>(type: "int", nullable: true)
+                    PatientId = table.Column<int>(type: "int", nullable: false),
+                    DoctorId = table.Column<int>(type: "int", nullable: false),
+                    SectorId = table.Column<int>(type: "int", nullable: false),
+                    Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SectorPatients", x => x.Id);
+                    table.PrimaryKey("PK_Appointments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SectorPatients_Patients_PatientId",
+                        name: "FK_Appointments_Doctors_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "Doctors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Appointments_Patients_PatientId",
                         column: x => x.PatientId,
                         principalTable: "Patients",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_SectorPatients_Sectors_SectorId",
+                        name: "FK_Appointments_Sectors_SectorId",
                         column: x => x.SectorId,
                         principalTable: "Sectors",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_SectorPatients_PatientId",
-                table: "SectorPatients",
+                name: "IX_Appointments_DoctorId",
+                table: "Appointments",
+                column: "DoctorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Appointments_PatientId",
+                table: "Appointments",
                 column: "PatientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SectorPatients_SectorId",
-                table: "SectorPatients",
+                name: "IX_Appointments_SectorId",
+                table: "Appointments",
                 column: "SectorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Patients_Cpf",
+                table: "Patients",
+                column: "Cpf",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Patients_Email",
+                table: "Patients",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Patients_Rg",
+                table: "Patients",
+                column: "Rg",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sectors_DoctorId",
@@ -108,7 +141,7 @@ namespace VirtualHoftalon_Server.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "SectorPatients");
+                name: "Appointments");
 
             migrationBuilder.DropTable(
                 name: "Patients");

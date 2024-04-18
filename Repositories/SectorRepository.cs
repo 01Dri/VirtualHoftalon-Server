@@ -31,7 +31,10 @@ public class SectorRepository : ISectorRepository
 
     public IEnumerable<Sector> GetAll()
     {
-        return _modelsContext.Sectors.Include(s => s.doctor).ToList();
+        return _modelsContext.Sectors
+            .Include(s => s.doctor)
+            .Include(s => s.Appointments)
+            .ToList();
     }
 
     public Sector UpdateSector(Sector sectorById)

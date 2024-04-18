@@ -2,6 +2,7 @@ using System.Reflection;
 using VirtualHoftalon_Server.Enums;
 using VirtualHoftalon_Server.Exceptions;
 using VirtualHoftalon_Server.Models;
+using VirtualHoftalon_Server.Models.Dto.Appointment;
 using VirtualHoftalon_Server.Models.Dto.Patient;
 using VirtualHoftalon_Server.Pattern;
 using VirtualHoftalon_Server.Repositories.Interfaces;
@@ -32,6 +33,7 @@ public class PatientService : IPatientService
             .WithPhone(patient.Phone)
             .WithDateBirth(patient.BirthDate)
             .WithEmail(patient.Email)
+            .WithAppointments(new List<Appointment>())
             .Build();
         
         this._patientRepository.SavePatient(patientToSave);
@@ -122,6 +124,12 @@ public class PatientService : IPatientService
         return new PatientResponseDTO(patientToSave.Id, patientToSave.Name,
             patientToSave.PhoneNumber, patientToSave.Cpf,
             patientToSave.Rg, patientToSave.Email,
-            patientToSave.DateBirth, patientToSave.ClassificationPatient);
+            patientToSave.DateBirth, patientToSave.ClassificationPatient,
+            patientToSave.Appointments.Select(a => this.ToAppointmentListDTO(a)).ToList());
+    }
+
+    private AppointmentListDTO ToAppointmentListDTO(Appointment appointment)
+    {
+        return new AppointmentListDTO(appointment.Id, appointment.PatientId, appointment.DoctorId,appointment.SectorId,appointment.Timestamp);
     }
 }

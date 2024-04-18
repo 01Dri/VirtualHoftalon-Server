@@ -37,12 +37,15 @@ public class Patient
     [Required(ErrorMessage = "O campo ClassificationPatient é obrigatório.")]
     public ClassificationPatient ClassificationPatient { get; set; }
 
+    public virtual ICollection<Appointment> Appointments { get; set; }
+
+
     public Patient()
     {
         
     }
 
-    public Patient(int? id, string name, string phoneNumber, string cpf, string rg, string email, DateTime dateBirth, ClassificationPatient classificationPatient)
+    public Patient(int? id, string name, string phoneNumber, string cpf, string rg, string email, DateTime dateBirth, ClassificationPatient classificationPatient, ICollection<Appointment> appointments)
     {
         Id = id;
         Name = name;
@@ -52,6 +55,7 @@ public class Patient
         Email = email;
         DateBirth = dateBirth;
         ClassificationPatient = classificationPatient;
+        Appointments = appointments;
     }
 }
 

@@ -18,7 +18,7 @@ public class PatientRepository : IPatientRepository
 
     public IEnumerable<Patient?> GetPatients()
     {
-        return _context.Patients.ToList();
+        return _context.Patients.Include(p => p.Appointments).ToList();
     }
 
     public Patient SavePatient(Patient patient)
@@ -46,7 +46,7 @@ public class PatientRepository : IPatientRepository
 
     public Patient GetPatientById(int id)
     {
-        return _context.Patients.FirstOrDefault(x => x.Id == id);
+        return _context.Patients.Include(p => p.Appointments).FirstOrDefault(x => x.Id == id);
 
     }
 

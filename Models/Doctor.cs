@@ -10,6 +10,8 @@ public class Doctor
     [Required(ErrorMessage = "O campo Name é obrigatório.")]
     [MaxLength(100, ErrorMessage = "O campo Name deve ter no máximo 100 caracteres.")]
     public string? Name { get; set; }
+    
+    public virtual List<Appointment>? Appointments { get; set; }
 
     public Doctor()
     {

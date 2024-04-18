@@ -38,7 +38,6 @@ public class SectorController : Microsoft.AspNetCore.Mvc.Controller
     public IActionResult GetSectorById(int id)
     {
         var resultSector = _sectorService.GetOneById(id);
-        Console.WriteLine($"DOCTOR ID: {resultSector.doctor}");
         return Ok(resultSector);
     }
 

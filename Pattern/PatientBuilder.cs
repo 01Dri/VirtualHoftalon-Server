@@ -13,6 +13,7 @@ public class PatientBuilder : IPatientBuilder
     private string Email;
     private DateTime DateBirth;
     private ClassificationPatient ClassificationPatient;
+    private List<Appointment> Appointments = new List<Appointment>();
     
     public IPatientBuilder WithId(int? id)
     {
@@ -63,10 +64,16 @@ public class PatientBuilder : IPatientBuilder
         this.ClassificationPatient = classification;
         return this;
     }
+    
+    public IPatientBuilder WithAppointments(List<Appointment> appointments)
+    {
+        this.Appointments = appointments;
+        return this;
+    }
 
     public Patient Build()
     {
         return new Patient(this.Id, this.Name, this.Phone, this.Cpf, this.Rg, this.Email, this.DateBirth,
-            this.ClassificationPatient);
+            this.ClassificationPatient, this.Appointments);
     }
 }

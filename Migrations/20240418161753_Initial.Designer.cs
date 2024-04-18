@@ -12,8 +12,8 @@ using VirtualHoftalon_Server.Models;
 namespace VirtualHoftalon_Server.Migrations
 {
     [DbContext(typeof(ModelsContext))]
-    [Migration("20240416204931_InitialV3")]
-    partial class InitialV3
+    [Migration("20240418161753_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,37 @@ namespace VirtualHoftalon_Server.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("VirtualHoftalon_Server.Models.Appointment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SectorId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("SectorId");
+
+                    b.ToTable("Appointments");
+                });
 
             modelBuilder.Entity("VirtualHoftalon_Server.Models.Doctor", b =>
                 {
@@ -121,27 +152,31 @@ namespace VirtualHoftalon_Server.Migrations
                     b.ToTable("Sectors");
                 });
 
-            modelBuilder.Entity("VirtualHoftalon_Server.Models.SectorPatient", b =>
+            modelBuilder.Entity("VirtualHoftalon_Server.Models.Appointment", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.HasOne("VirtualHoftalon_Server.Models.Doctor", "doctor")
+                        .WithMany("Appointments")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.HasOne("VirtualHoftalon_Server.Models.Patient", "patient")
+                        .WithMany("Appointments")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.Property<int?>("PatientId")
-                        .HasColumnType("int");
+                    b.HasOne("VirtualHoftalon_Server.Models.Sector", "Sector")
+                        .WithMany("Appointments")
+                        .HasForeignKey("SectorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.Property<int?>("SectorId")
-                        .HasColumnType("int");
+                    b.Navigation("Sector");
 
-                    b.HasKey("Id");
+                    b.Navigation("doctor");
 
-                    b.HasIndex("PatientId");
-
-                    b.HasIndex("SectorId");
-
-                    b.ToTable("SectorPatients");
+                    b.Navigation("patient");
                 });
 
             modelBuilder.Entity("VirtualHoftalon_Server.Models.Sector", b =>
@@ -155,24 +190,19 @@ namespace VirtualHoftalon_Server.Migrations
                     b.Navigation("doctor");
                 });
 
-            modelBuilder.Entity("VirtualHoftalon_Server.Models.SectorPatient", b =>
+            modelBuilder.Entity("VirtualHoftalon_Server.Models.Doctor", b =>
                 {
-                    b.HasOne("VirtualHoftalon_Server.Models.Patient", "Patient")
-                        .WithMany()
-                        .HasForeignKey("PatientId");
+                    b.Navigation("Appointments");
+                });
 
-                    b.HasOne("VirtualHoftalon_Server.Models.Sector", "Sector")
-                        .WithMany("SectorPatients")
-                        .HasForeignKey("SectorId");
-
-                    b.Navigation("Patient");
-
-                    b.Navigation("Sector");
+            modelBuilder.Entity("VirtualHoftalon_Server.Models.Patient", b =>
+                {
+                    b.Navigation("Appointments");
                 });
 
             modelBuilder.Entity("VirtualHoftalon_Server.Models.Sector", b =>
                 {
-                    b.Navigation("SectorPatients");
+                    b.Navigation("Appointments");
                 });
 #pragma warning restore 612, 618
         }

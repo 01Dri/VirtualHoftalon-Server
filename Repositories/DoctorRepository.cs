@@ -16,7 +16,7 @@ public class DoctorRepository : IDoctorRepository
 
     public IEnumerable<Doctor> GetDoctors()
     {
-        return _context.Doctors.ToList();
+        return _context.Doctors.Include(d => d.Appointments);
     }
 
     public Doctor SaveDoctor(Doctor doctor)
@@ -28,7 +28,7 @@ public class DoctorRepository : IDoctorRepository
 
     public Doctor GetDoctorById(int id)
     {
-        return _context.Doctors.Find(id);
+        return _context.Doctors.Include(d => d.Appointments).FirstOrDefault(x => x.Id == id);
     }
 
     public Doctor GetDoctorByName(string doctorName)

@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Uymd//nsRYgg0eQL9V7Zn4iNiAJs5MRX3MOl6Z5wlBbiP95FlulXN8g/xTwoL5FjBRP06XgECqrXPWBuVA8MYA==",
+  "dgSpecHash": "p6SH9HWkECQQnXY0WQCzR+fxiqE6HGBaCe/CjGn149BdYTl+KskV3/xXaQgy8r6qmXaCgub6ryoeagNDU7kpfw==",
   "success": true,
   "projectFilePath": "/home/dridev/Desktop/VirtualHoftalon-Server/VirtualHoftalon-Server/VirtualHoftalon-Server.csproj",
   "expectedPackageFiles": [
     "/home/dridev/.nuget/packages/azure.core/1.35.0/azure.core.1.35.0.nupkg.sha512",
     "/home/dridev/.nuget/packages/azure.identity/1.10.3/azure.identity.1.10.3.nupkg.sha512",
+    "/home/dridev/.nuget/packages/castle.core/5.1.1/castle.core.5.1.1.nupkg.sha512",
     "/home/dridev/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/home/dridev/.nuget/packages/microsoft.aspnetcore.openapi/8.0.4/microsoft.aspnetcore.openapi.8.0.4.nupkg.sha512",
     "/home/dridev/.nuget/packages/microsoft.bcl.asyncinterfaces/7.0.0/microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
@@ -21,6 +22,7 @@
     "/home/dridev/.nuget/packages/microsoft.entityframeworkcore.abstractions/9.0.0-preview.3.24172.4/microsoft.entityframeworkcore.abstractions.9.0.0-preview.3.24172.4.nupkg.sha512",
     "/home/dridev/.nuget/packages/microsoft.entityframeworkcore.analyzers/9.0.0-preview.3.24172.4/microsoft.entityframeworkcore.analyzers.9.0.0-preview.3.24172.4.nupkg.sha512",
     "/home/dridev/.nuget/packages/microsoft.entityframeworkcore.design/9.0.0-preview.3.24172.4/microsoft.entityframeworkcore.design.9.0.0-preview.3.24172.4.nupkg.sha512",
+    "/home/dridev/.nuget/packages/microsoft.entityframeworkcore.proxies/8.0.4/microsoft.entityframeworkcore.proxies.8.0.4.nupkg.sha512",
     "/home/dridev/.nuget/packages/microsoft.entityframeworkcore.relational/9.0.0-preview.3.24172.4/microsoft.entityframeworkcore.relational.9.0.0-preview.3.24172.4.nupkg.sha512",
     "/home/dridev/.nuget/packages/microsoft.entityframeworkcore.sqlserver/9.0.0-preview.3.24172.4/microsoft.entityframeworkcore.sqlserver.9.0.0-preview.3.24172.4.nupkg.sha512",
     "/home/dridev/.nuget/packages/microsoft.entityframeworkcore.tools/9.0.0-preview.3.24172.4/microsoft.entityframeworkcore.tools.9.0.0-preview.3.24172.4.nupkg.sha512",

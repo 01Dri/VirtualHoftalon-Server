@@ -149,3 +149,5 @@
 /home/dridev/Desktop/VirtualHoftalon-Server/VirtualHoftalon-Server/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
 /home/dridev/Desktop/VirtualHoftalon-Server/VirtualHoftalon-Server/bin/Debug/net8.0/runtimes/browser/lib/net8.0/System.Text.Encodings.Web.dll
 /home/dridev/Desktop/VirtualHoftalon-Server/VirtualHoftalon-Server/obj/Debug/net8.0/VirtualHoftalon-Server.sourcelink.json
+/home/dridev/Desktop/VirtualHoftalon-Server/VirtualHoftalon-Server/bin/Debug/net8.0/Castle.Core.dll
+/home/dridev/Desktop/VirtualHoftalon-Server/VirtualHoftalon-Server/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Proxies.dll

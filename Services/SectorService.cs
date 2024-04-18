@@ -22,22 +22,22 @@ public class SectorService : ISectorService
     public SectorResponseDTO SaveSector(SectorRequestDTO sectorRequestDto)
     {
         Doctor doctorEntity = _doctorRepository.GetDoctorById(sectorRequestDto.DoctorId) ?? throw new NotFoundDoctorException("Not found Doctor!");
-        Sector sectorCreated = new Sector(null, sectorRequestDto.Name, sectorRequestDto.RoomNumber);
+        Sector sectorCreated = new Sector(null, sectorRequestDto.Name, sectorRequestDto.RoomNumber, sectorRequestDto.DoctorId, new List<Appointment>());
         sectorCreated.doctor = doctorEntity;
         sectorCreated = _sectorRepository.SaveSector(sectorCreated);
-        return new SectorResponseDTO(sectorCreated.Id, sectorCreated.Name, sectorRequestDto.RoomNumber,sectorCreated.doctor);
+        return new SectorResponseDTO(sectorCreated.Id, sectorCreated.Name, sectorRequestDto.RoomNumber,sectorCreated.DoctorId);
     }
 
     public IEnumerable<SectorResponseDTO> GetAll()
     {
         
-        return _sectorRepository.GetAll().Select(s => new SectorResponseDTO(s.Id, s.Name, s.RoomNumber, s.doctor)).ToList();
+        return _sectorRepository.GetAll().Select(s => new SectorResponseDTO(s.Id, s.Name, s.RoomNumber, s.DoctorId)).ToList();
     }
 
     public SectorResponseDTO GetOneById(int id)
     {
         Sector sectorById = _sectorRepository.GetSectorById(id) ?? throw new NotFoundSectorException(NotFoundMessage); 
-        return new SectorResponseDTO(sectorById.Id, sectorById.Name, sectorById.RoomNumber,sectorById.doctor);
+        return new SectorResponseDTO(sectorById.Id, sectorById.Name, sectorById.RoomNumber,sectorById.DoctorId);
     }
 
     public SectorResponseDTO UpdateById(int id, SectorUpdateRequestDTO sectorRequestDto)
@@ -45,7 +45,7 @@ public class SectorService : ISectorService
         Sector sectorById = _sectorRepository.GetSectorById(id) ?? throw new NotFoundSectorException(NotFoundMessage);
         sectorById = UpdateSectorAttributes(sectorRequestDto, sectorById);
         sectorById = _sectorRepository.UpdateSector(sectorById);
-        return new SectorResponseDTO(sectorById.Id, sectorById.Name, sectorById.RoomNumber, sectorById.doctor);
+        return new SectorResponseDTO(sectorById.Id, sectorById.Name, sectorById.RoomNumber, sectorById.DoctorId);
     }
 
     public void DeleteById(int id)

@@ -1,3 +1,5 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using VirtualHoftalon_Server.Exceptions;
 using VirtualHoftalon_Server.Models;
@@ -12,6 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+// builder.Services.AddControllers().AddJsonOptions(x =>
+    // x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve
+// );
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ModelsContext>(options => options.UseSqlServer(connectionString));
 
@@ -40,5 +45,6 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
 });
+
 app.Run();
 

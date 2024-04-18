@@ -14,6 +14,8 @@ public interface IPatientBuilder
     IPatientBuilder WithDateBirth(DateTime date);
 
     IPatientBuilder WithClassification(ClassificationPatient classification);
+
+    IPatientBuilder WithAppointments(List<Appointment> appointments);
     Patient Build();
 
 
