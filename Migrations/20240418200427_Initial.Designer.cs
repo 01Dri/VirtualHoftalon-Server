@@ -12,7 +12,7 @@ using VirtualHoftalon_Server.Models;
 namespace VirtualHoftalon_Server.Migrations
 {
     [DbContext(typeof(ModelsContext))]
-    [Migration("20240418161753_Initial")]
+    [Migration("20240418200427_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -33,16 +33,20 @@ namespace VirtualHoftalon_Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DoctorId")
+                    b.Property<int?>("DoctorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PatientId")
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PatientId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SectorId")
+                    b.Property<int?>("SectorId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Timestamp")
+                    b.Property<DateTime?>("Timestamp")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -157,20 +161,17 @@ namespace VirtualHoftalon_Server.Migrations
                     b.HasOne("VirtualHoftalon_Server.Models.Doctor", "doctor")
                         .WithMany("Appointments")
                         .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("VirtualHoftalon_Server.Models.Patient", "patient")
                         .WithMany("Appointments")
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("VirtualHoftalon_Server.Models.Sector", "Sector")
                         .WithMany("Appointments")
                         .HasForeignKey("SectorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Sector");
 

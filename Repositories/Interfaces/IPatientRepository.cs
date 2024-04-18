@@ -8,7 +8,7 @@ public interface IPatientRepository
     IEnumerable<Patient?> GetPatients();
     Patient SavePatient(Patient patient);
 
-    Patient GetPatientById(int id);
+    Patient GetPatientById(int? id);
 
     Patient GetPatientByCpf(string cpf);
     Patient UpdatePatient(Patient patientToUpdate);

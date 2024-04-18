@@ -14,14 +14,14 @@ public class SectorRepository : ISectorRepository
         _modelsContext = modelsContext;
     }
 
-    public Sector? GetSectorById(int id)
+    public Sector? GetSectorById(int? id)
     // O metodo include, é utilizado para informar ao EF, que ele deve trazer a entidade de relacionamento junto. (Doctor)
 
     {
         return _modelsContext.Sectors.Include(d => d.doctor).FirstOrDefault(s => s.Id == id);
     }
 
-    public Sector SaveSector(Sector sector)
+    public Sector SaveSector(Sector? sector)
     {
 
          _modelsContext.Sectors.Add(sector);
@@ -37,7 +37,7 @@ public class SectorRepository : ISectorRepository
             .ToList();
     }
 
-    public Sector UpdateSector(Sector sectorById)
+    public Sector UpdateSector(Sector? sectorById)
     {
         // Marca a entidade como modificada, dessa forma, o EF vai saber que ela precisa ser atualizada no banco com o metodo "SaveChanges"
         _modelsContext.Entry(sectorById).State = EntityState.Modified;
@@ -45,7 +45,7 @@ public class SectorRepository : ISectorRepository
         return sectorById;
     }
 
-    public void Delete(Sector sectorById)
+    public void Delete(Sector? sectorById)
     {
         _modelsContext.Sectors.Remove(sectorById);
         _modelsContext.SaveChanges();

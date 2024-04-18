@@ -44,7 +44,7 @@ public class PatientRepository : IPatientRepository
         }
     }
 
-    public Patient GetPatientById(int id)
+    public Patient GetPatientById(int? id)
     {
         return _context.Patients.Include(p => p.Appointments).FirstOrDefault(x => x.Id == id);
 

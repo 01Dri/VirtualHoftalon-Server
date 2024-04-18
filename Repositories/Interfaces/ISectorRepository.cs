@@ -4,11 +4,11 @@ namespace VirtualHoftalon_Server.Repositories.Interfaces;
 
 public interface ISectorRepository
 {
-    Sector? GetSectorById(int id);
+    Sector GetSectorById(int? id);
 
-    Sector SaveSector(Sector sector);
+    Sector SaveSector(Sector? sector);
 
     IEnumerable<Sector> GetAll();
-    Sector UpdateSector(Sector sectorById);
-    void Delete(Sector sectorById);
+    Sector UpdateSector(Sector? sectorById);
+    void Delete(Sector? sectorById);
 }

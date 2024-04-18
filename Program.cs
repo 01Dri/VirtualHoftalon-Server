@@ -24,12 +24,17 @@ builder.Services.AddDbContext<ModelsContext>(options => options.UseSqlServer(con
 builder.Services.AddScoped<ISectorRepository, SectorRepository>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+
 builder.Services.AddScoped<IPatientBuilder, PatientBuilder>();
+builder.Services.AddScoped<IAppointmentBuilder, AppointmentBuilder>();
 
 
 builder.Services.AddScoped<ISectorService, SectorService>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+
 
 
 var app = builder.Build();
