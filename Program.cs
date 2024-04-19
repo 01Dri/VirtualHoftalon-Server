@@ -1,6 +1,6 @@
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using QuestPDF;
+using QuestPDF.Infrastructure;
 using VirtualHoftalon_Server.Exceptions;
 using VirtualHoftalon_Server.Models;
 using VirtualHoftalon_Server.Pattern;
@@ -14,9 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-// builder.Services.AddControllers().AddJsonOptions(x =>
-    // x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve
-// );
+Settings.License = LicenseType.Community;
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ModelsContext>(options => options.UseSqlServer(connectionString));
 
@@ -25,6 +23,8 @@ builder.Services.AddScoped<ISectorRepository, SectorRepository>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+builder.Services.AddScoped<IPDFGenerator, PDFGeneratorService>();
+
 
 builder.Services.AddScoped<IPatientBuilder, PatientBuilder>();
 builder.Services.AddScoped<IAppointmentBuilder, AppointmentBuilder>();

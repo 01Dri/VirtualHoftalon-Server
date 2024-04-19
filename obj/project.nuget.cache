@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "p6SH9HWkECQQnXY0WQCzR+fxiqE6HGBaCe/CjGn149BdYTl+KskV3/xXaQgy8r6qmXaCgub6ryoeagNDU7kpfw==",
+  "dgSpecHash": "xKxjuAcY9/wVhTAaIZ1DP6bXpqEDeryg7ZMZVWHSSW9unWjawJJOSo5lyF7pFFGWTW0GRMCR7/tFBATrjE/7EQ==",
   "success": true,
   "projectFilePath": "/home/dridev/Desktop/VirtualHoftalon-Server/VirtualHoftalon-Server/VirtualHoftalon-Server.csproj",
   "expectedPackageFiles": [
@@ -50,6 +50,7 @@
     "/home/dridev/.nuget/packages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
     "/home/dridev/.nuget/packages/microsoft.sqlserver.server/1.0.0/microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "/home/dridev/.nuget/packages/mono.texttemplating/3.0.0-preview-0052-g5d0f76c785/mono.texttemplating.3.0.0-preview-0052-g5d0f76c785.nupkg.sha512",
+    "/home/dridev/.nuget/packages/questpdf/2024.3.0/questpdf.2024.3.0.nupkg.sha512",
     "/home/dridev/.nuget/packages/swashbuckle.aspnetcore/6.4.0/swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "/home/dridev/.nuget/packages/swashbuckle.aspnetcore.swagger/6.4.0/swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
     "/home/dridev/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.4.0/swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
