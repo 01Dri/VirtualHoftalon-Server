@@ -76,36 +76,12 @@ public class AppointmentService : IAppointmentService
                                   throw new NotFoundAppointmentException("Not found Appointment");
         ArgumentsValidation.CheckIfAllPropertiesIsNull(dto);
         this.ValidateInputsDate(dto.Day, dto.Month, dto.Year);
-        if (dto.Day != null)
-        {
-            appointment.Day = dto.Day;
-        }
-        
-        if (dto.Month != null)
-        {
-            appointment.Month = dto.Month;
-            
-        }    
-        if (dto.Year != null)
-        {
-            appointment.Year = dto.Year;
-        }    if (dto.Hour != null)
-            
-        {
-            appointment.Hour = dto.Hour;
-        }
-
-        if (dto.SectorId != null)
-        {
-            appointment.Sector = _sectorRepository.GetSectorById(dto.SectorId) ??
-                                 throw new NotFoundSectorException("Not found Sector!");
-            appointment.SectorId = dto.SectorId;
-        }
-
-        appointment = _appointmentRepository.UpdateAppointment(appointment);
+        this.updatePropertiesAppointment(appointment, dto);
+        _appointmentRepository.UpdateAppointment(appointment);
         return ToResponseDTO(appointment);
 
     }
+    
 
     public bool DeleteAppointmentById(int id)
     {
@@ -113,6 +89,22 @@ public class AppointmentService : IAppointmentService
                                   throw new NotFoundAppointmentException("Not found Appointment");
         _appointmentRepository.Delete(appointment);
         return true;
+    }
+
+    private void updatePropertiesAppointment(Appointment appointment, AppointmentUpdateRequestDTO dto)
+    {
+        appointment.Day = dto.Day ?? appointment.Day;
+        appointment.Day = dto.Day ?? appointment.Day;
+        appointment.Month = dto.Month ?? appointment.Month;
+        appointment.Year = dto.Year ?? appointment.Year;
+        appointment.Hour = dto.Hour ?? appointment.Hour;
+        if (dto.SectorId != null)
+        {
+            appointment.Sector = _sectorRepository.GetSectorById(dto.SectorId) ??
+                                 throw new NotFoundSectorException("Not found Sector!");
+            appointment.SectorId = dto.SectorId;
+        }
+
     }
 
     private DateTime ToTimestamp(int? Day, int? Month, int? Year, string? Hour)
