@@ -59,11 +59,6 @@ public class ModelsContext : DbContext
         modelBuilder.Entity<Appointment>(appointment =>
         {
             appointment.HasKey(k => k.Id);;
-            appointment.HasIndex(a => a.Name).IsUnique();
-            // appointment.HasOne(c => c.patient)
-            // .WithMany(p => p.Appointments)
-            // .HasForeignKey(c => c.PatientId)
-            // .OnDelete(DeleteBehavior.Restrict); // Define para não realizar a exclusão em cascata
 
         });
 

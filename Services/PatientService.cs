@@ -107,6 +107,7 @@ public class PatientService : IPatientService
 
     private AppointmentListDTO ToAppointmentListDTO(Appointment appointment)
     {
-        return new AppointmentListDTO(appointment.Id, appointment.PatientId, appointment.DoctorId,appointment.SectorId,appointment.Timestamp);
+        return new AppointmentListDTO(appointment.Id, appointment.PatientId, appointment.DoctorId,appointment.SectorId,
+            DateFormatParser.ToTimestamp(appointment.Day, appointment.Month, appointment.Year, appointment.Hour));
     }
 }

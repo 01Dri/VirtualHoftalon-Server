@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Components.Sections;
+using Microsoft.VisualBasic;
 using VirtualHoftalon_Server.Exceptions;
 using VirtualHoftalon_Server.Models;
 using VirtualHoftalon_Server.Models.Dto;
 using VirtualHoftalon_Server.Models.Dto.Appointment;
 using VirtualHoftalon_Server.Repositories.Interfaces;
 using VirtualHoftalon_Server.Services.Interfaces;
+using VirtualHoftalon_Server.Utils;
 
 namespace VirtualHoftalon_Server.Services;
 
@@ -26,7 +28,8 @@ public class DoctorService : IDoctorService {
     {
         return _doctorRepository.GetDoctors()
             .Select(doctor => new DoctorResponseDTO(doctor.Id, doctor.Name, doctor.Appointments.Select
-                (a => new AppointmentListDTO(a.Id, a.PatientId, a.DoctorId, a.SectorId, a.Timestamp)).ToList()))
+                (a => new AppointmentListDTO(a.Id, a.PatientId, a.DoctorId, a.SectorId,
+                    DateFormatParser.ToTimestamp(a.Day, a.Month, a.Year, a.Hour))).ToList()))
             .ToList();
     }
 
@@ -35,7 +38,9 @@ public class DoctorService : IDoctorService {
         Doctor doctor = new Doctor(null, doctorRequestDto.Name);
         doctor.Appointments = new List<Appointment>();
         doctor = _doctorRepository.SaveDoctor(doctor);
-        return new DoctorResponseDTO(doctor.Id, doctor.Name,  doctor.Appointments.Select(a => new AppointmentListDTO(a.Id, a.PatientId, a.DoctorId, a.SectorId, a.Timestamp)).ToList());
+        return new DoctorResponseDTO(doctor.Id, doctor.Name,  doctor.Appointments.Select(a => 
+            new AppointmentListDTO(a.Id, a.PatientId, a.DoctorId, a.SectorId, 
+                DateFormatParser.ToTimestamp(a.Day, a.Month, a.Year, a.Hour))).ToList());
     }
 
     public DoctorResponseDTO GetOneById(int id)
@@ -44,7 +49,8 @@ public class DoctorService : IDoctorService {
         Console.WriteLine(doctorById.Appointments);
         return new DoctorResponseDTO(doctorById.Id, doctorById.Name,
             doctorById.Appointments
-                .Select(a => new AppointmentListDTO(a.Id, a.PatientId, a.DoctorId, a.SectorId, a.Timestamp)).ToList());
+                .Select(a => new AppointmentListDTO(a.Id, a.PatientId, a.DoctorId, a.SectorId,
+                    DateFormatParser.ToTimestamp(a.Day, a.Month, a.Year, a.Hour))).ToList());
 
     }
 
@@ -57,7 +63,8 @@ public class DoctorService : IDoctorService {
         doctorToUpdate = _doctorRepository.UpdateDoctor(doctorToUpdate);
         return new DoctorResponseDTO(doctorToUpdate.Id, doctorToUpdate.Name,
             doctorToUpdate.Appointments
-                .Select(a => new AppointmentListDTO(a.Id, a.PatientId, a.DoctorId, a.SectorId, a.Timestamp)).ToList());
+                .Select(a => new AppointmentListDTO(a.Id, a.PatientId, a.DoctorId, a.SectorId,
+                    DateFormatParser.ToTimestamp(a.Day, a.Month, a.Year, a.Hour))).ToList());
     }
 
     public bool DeleteDoctorById(int id)

@@ -9,7 +9,11 @@ public interface IAppointmentBuilder
     IAppointmentBuilder WithPatient(Patient patient);
     IAppointmentBuilder WithDoctor(Doctor doctor);
     IAppointmentBuilder WithSector(Sector sector);
-    IAppointmentBuilder WithTimestamp(DateTime time);
+    IAppointmentBuilder WithDay(int? day);
+    IAppointmentBuilder WithMonth(int? month);
+    IAppointmentBuilder WithYear(int? year);
+    IAppointmentBuilder WithHour(string? hour);
+
     Appointment Build();
 
 

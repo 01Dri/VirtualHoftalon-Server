@@ -9,7 +9,10 @@ public class AppointmentBuilder : IAppointmentBuilder
     private Patient? Patient;
     private Doctor? Doctor;
     private Sector? Sector;
-    private DateTime? Time;
+    private int? Day;
+    private int? Month;
+    private int? Year;
+    private string? Hour;
     
     
     public IAppointmentBuilder WithId(int id)
@@ -43,17 +46,37 @@ public class AppointmentBuilder : IAppointmentBuilder
         return this;
     }
 
-    public IAppointmentBuilder WithTimestamp(DateTime time)
+    public IAppointmentBuilder WithDay(int? day)
     {
-        this.Time = time;
+        this.Day = day;
         return this;
     }
+
+    public IAppointmentBuilder WithMonth(int? month)
+    {
+        this.Month = month;
+        return this;
+    }
+
+    public IAppointmentBuilder WithYear(int? year)
+    {
+        this.Year = year;
+        return this;
+    }
+
+    public IAppointmentBuilder WithHour(string? hour)
+    {
+        this.Hour = hour;
+        return this;
+
+    }
+
 
     public Appointment Build()
     {
         return new Appointment(this.Id,this.Name, this.Patient.Id,
             this.Patient, this.Doctor.Id,
             this.Doctor, this.Sector.Id,
-            this.Sector, this.Time);
+            this.Sector, this.Day, this.Month, this.Year, this.Hour);
     }
 }

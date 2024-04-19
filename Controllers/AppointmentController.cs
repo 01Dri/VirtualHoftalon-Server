@@ -20,6 +20,13 @@ public class AppointmentController : Microsoft.AspNetCore.Mvc.Controller
         return Ok(_appointmentService.GetAll());
     }
     
+    [HttpGet]
+    [Route("/appointments/{id}")]
+    public IActionResult GetById(int id)
+    {
+        return Ok(_appointmentService.GetOneById(id));
+    }
+    
     [HttpPost]
     [Route("/appointments")]
     public IActionResult Save([FromBody] AppointmentRequestDTO appointmentRequestDto)
@@ -29,6 +36,20 @@ public class AppointmentController : Microsoft.AspNetCore.Mvc.Controller
             return BadRequest(ModelState);
         }
         return Ok(_appointmentService.SaveAppointment(appointmentRequestDto));
+    }
+    [HttpPatch]
+    [Route("/appointments/{id}")]
+    public IActionResult UpdateById(int id, [FromBody] AppointmentUpdateRequestDTO appointment)
+    {
+        return Ok(_appointmentService.UpdateAppointmentById(id, appointment));
+    }
+    
+    [HttpDelete]
+    [Route("/appointments/{id}")]
+    public IActionResult DeleteById(int id)
+    {
+        _appointmentService.DeleteAppointmentById(id);
+        return NoContent();
     }
 
 }

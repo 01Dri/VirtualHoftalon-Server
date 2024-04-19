@@ -16,12 +16,14 @@ public class ArgumentsValidation
         int countNullProperties = 0;
         foreach (var dtoProperty in tests)
         {
-            Console.WriteLine(dtoProperty.GetValue(dto));
             if (dtoProperty.GetValue(dto) == null)
             {
                 countNullProperties++;
             }
-
+            else
+            {
+                break;
+            }
             if (countNullProperties == amountProperties)
             {
                 throw new PatientArgumentsInvalidException("Os argumentos da entidade não pode ser null!");

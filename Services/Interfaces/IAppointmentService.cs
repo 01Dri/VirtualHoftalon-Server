@@ -7,7 +7,7 @@ public interface IAppointmentService
     List<AppointmentResponseDTO> GetAll();
     AppointmentResponseDTO SaveAppointment(AppointmentRequestDTO AppointmentRequestDto);
     AppointmentResponseDTO GetOneById(int id);
-    AppointmentResponseDTO UpdateAppointmentById(int id, AppointmentRequestDTO Appointment);
+    AppointmentResponseDTO UpdateAppointmentById(int id, AppointmentUpdateRequestDTO appointment);
     bool DeleteAppointmentById(int id);
 
     

@@ -5,6 +5,7 @@ using VirtualHoftalon_Server.Models.Dto.Appointment;
 using VirtualHoftalon_Server.Pattern;
 using VirtualHoftalon_Server.Repositories.Interfaces;
 using VirtualHoftalon_Server.Services.Interfaces;
+using VirtualHoftalon_Server.Utils;
 
 namespace VirtualHoftalon_Server.Services;
 
@@ -32,13 +33,13 @@ public class AppointmentService : IAppointmentService
     {
         var appointments = _appointmentRepository.GetAll();
         return appointments
-            .Select(a => new AppointmentResponseDTO(a.Name,a.Id, a.PatientId, a.DoctorId, a.SectorId, a.Timestamp))
+            .Select(a => this.ToResponseDTO(a))
             .ToList();
     }
 
     public AppointmentResponseDTO SaveAppointment(AppointmentRequestDTO appointmentRequestDto)
     {
-        this.ValidateInputsDate(appointmentRequestDto.DateFormat);
+        this.ValidateInputsDate(appointmentRequestDto.DateFormat.Day, appointmentRequestDto.DateFormat.Month, appointmentRequestDto.DateFormat.Year);
         Sector sector = this._sectorRepository.GetSectorById(appointmentRequestDto.SectorId) ??
                         throw new NotFoundSectorException("Not found Sector");
         Doctor doctor = this._doctorRepository.GetDoctorById(sector.DoctorId) ??
@@ -51,59 +52,105 @@ public class AppointmentService : IAppointmentService
             .WithDoctor(doctor)
             .WithSector(sector)
             .WithPatient(patient)
-            .WithTimestamp(this.ToTimestamp(appointmentRequestDto.DateFormat))
+            .WithDay(appointmentRequestDto.DateFormat.Day)
+            .WithMonth(appointmentRequestDto.DateFormat.Month)
+            .WithYear(appointmentRequestDto.DateFormat.Year)
+            .WithHour(appointmentRequestDto.DateFormat.Hour)
             .Build();
         appointmentToSave = this._appointmentRepository.SaveAppointment(appointmentToSave);
 
-        return new AppointmentResponseDTO(appointmentToSave.Name,appointmentToSave.Id, appointmentRequestDto.PatientId,
-            appointmentToSave.DoctorId, appointmentRequestDto.SectorId, appointmentToSave.Timestamp);
+            return this.ToResponseDTO(appointmentToSave);
+
     }
 
 
     public AppointmentResponseDTO GetOneById(int id)
     {
-        throw new NotImplementedException();
+        Appointment appointment = _appointmentRepository.GetAppointmentById(id) ?? throw new NotFoundAppointmentException("Not found Appointment!");
+        return this.ToResponseDTO(appointment);
     }
 
-    public AppointmentResponseDTO UpdateAppointmentById(int id, AppointmentRequestDTO Appointment)
+    public AppointmentResponseDTO UpdateAppointmentById(int id, AppointmentUpdateRequestDTO dto)
     {
-        throw new NotImplementedException();
+        Appointment appointment = _appointmentRepository.GetAppointmentById(id) ??
+                                  throw new NotFoundAppointmentException("Not found Appointment");
+        ArgumentsValidation.CheckIfAllPropertiesIsNull(dto);
+        this.ValidateInputsDate(dto.Day, dto.Month, dto.Year);
+        if (dto.Day != null)
+        {
+            appointment.Day = dto.Day;
+        }
+        
+        if (dto.Month != null)
+        {
+            appointment.Month = dto.Month;
+            
+        }    
+        if (dto.Year != null)
+        {
+            appointment.Year = dto.Year;
+        }    if (dto.Hour != null)
+            
+        {
+            appointment.Hour = dto.Hour;
+        }
+
+        if (dto.SectorId != null)
+        {
+            appointment.Sector = _sectorRepository.GetSectorById(dto.SectorId) ??
+                                 throw new NotFoundSectorException("Not found Sector!");
+            appointment.SectorId = dto.SectorId;
+        }
+
+        appointment = _appointmentRepository.UpdateAppointment(appointment);
+        return ToResponseDTO(appointment);
+
     }
 
     public bool DeleteAppointmentById(int id)
     {
-        throw new NotImplementedException();
+        Appointment appointment = _appointmentRepository.GetAppointmentById(id) ??
+                                  throw new NotFoundAppointmentException("Not found Appointment");
+        _appointmentRepository.Delete(appointment);
+        return true;
     }
 
-    private DateTime ToTimestamp(AppointmentDateFormatDTO date)
+    private DateTime ToTimestamp(int? Day, int? Month, int? Year, string? Hour)
     {
         string dateStr =
-        $"{date.Day.Value.ToString("D2")}/{date.Month.Value.ToString("D2")}/{date.Year} {date.Hour}";
+        $"{Day.Value.ToString("D2")}/{Month.Value.ToString("D2")}/{Year} {Hour}";
         return DateTime.ParseExact(dateStr, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
     }
-    private void ValidateInputsDate(AppointmentDateFormatDTO date)
+    private void ValidateInputsDate(int? Day, int? Month, int? Year)
     {
-        if (date.Month > 12 || date.Month <= 0)
+        if (Month > 12 || Month <= 0)
         {
             throw new InvalidDateAppointmentException($"Informe um mês válido!");
             
         }
 
-        if (date.Year < DateTime.Now.Year)
+        if (Year < DateTime.Now.Year)
         {
             throw new InvalidDateAppointmentException($"Informe um ano válido!");
             
         }
-        if (date.Day > 31)
+        if (Day > 31)
         {
             throw new InvalidDateAppointmentException($"Informe um dia válido!");
         }
 
         int?[] monthsWith31Days = [1, 3, 5, 7, 8, 10, 12];
-        if (date.Day == 31 && !monthsWith31Days.Contains(date.Month))
+        if (Day == 31 && !monthsWith31Days.Contains(Month))
         {
-            throw new InvalidDateAppointmentException($"O mês {date.Month} não tem 31 dias!");
+            throw new InvalidDateAppointmentException($"O mês {Month} não tem 31 dias!");
         }
     }
+
+    private AppointmentResponseDTO ToResponseDTO(Appointment appointment)
+    {
+        return new AppointmentResponseDTO(appointment.Id, appointment.Name, appointment.PatientId,
+            appointment.DoctorId, appointment.SectorId, this.ToTimestamp(appointment.Day, appointment.Month, appointment.Year, appointment.Hour));
+    }
+    
 }
     
