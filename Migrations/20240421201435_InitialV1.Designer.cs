@@ -12,8 +12,8 @@ using VirtualHoftalon_Server.Models;
 namespace VirtualHoftalon_Server.Migrations
 {
     [DbContext(typeof(ModelsContext))]
-    [Migration("20240418200427_Initial")]
-    partial class Initial
+    [Migration("20240421201435_InitialV1")]
+    partial class InitialV1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,7 +33,19 @@ namespace VirtualHoftalon_Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("Day")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Hour")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Month")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -46,8 +58,8 @@ namespace VirtualHoftalon_Server.Migrations
                     b.Property<int?>("SectorId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Timestamp")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("Year")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

@@ -3,4 +3,3 @@
 GET {{VirtualHoftalon_Server_HostAddress}}/weatherforecast/
 Accept: application/json
 
-###
