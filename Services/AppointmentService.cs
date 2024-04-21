@@ -56,6 +56,7 @@ public class AppointmentService : IAppointmentService
             .WithMonth(appointmentRequestDto.DateFormat.Month)
             .WithYear(appointmentRequestDto.DateFormat.Year)
             .WithHour(appointmentRequestDto.DateFormat.Hour)
+            .WithDescription(appointmentRequestDto.Description)
             .Build();
         appointmentToSave = this._appointmentRepository.SaveAppointment(appointmentToSave);
 
@@ -141,7 +142,7 @@ public class AppointmentService : IAppointmentService
     private AppointmentResponseDTO ToResponseDTO(Appointment appointment)
     {
         return new AppointmentResponseDTO(appointment.Id, appointment.Name, appointment.PatientId,
-            appointment.DoctorId, appointment.SectorId, this.ToTimestamp(appointment.Day, appointment.Month, appointment.Year, appointment.Hour));
+            appointment.DoctorId, appointment.SectorId, this.ToTimestamp(appointment.Day, appointment.Month, appointment.Year, appointment.Hour), appointment.Description);
     }
     
 }

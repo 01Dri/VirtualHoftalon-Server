@@ -13,6 +13,7 @@ public class AppointmentBuilder : IAppointmentBuilder
     private int? Month;
     private int? Year;
     private string? Hour;
+    private string? Description;
     
     
     public IAppointmentBuilder WithId(int id)
@@ -71,12 +72,18 @@ public class AppointmentBuilder : IAppointmentBuilder
 
     }
 
+    public IAppointmentBuilder WithDescription(string? description)
+    {
+        this.Description = description;
+        return this;
+    }
+
 
     public Appointment Build()
     {
         return new Appointment(this.Id,this.Name, this.Patient.Id,
             this.Patient, this.Doctor.Id,
             this.Doctor, this.Sector.Id,
-            this.Sector, this.Day, this.Month, this.Year, this.Hour);
+            this.Sector, this.Day, this.Month, this.Year, this.Hour, this.Description);
     }
 }

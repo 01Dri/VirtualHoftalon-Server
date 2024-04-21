@@ -7,6 +7,9 @@ public record AppointmentRequestDTO(
     [Required(ErrorMessage = "O Nome não pode ser nulo")]
     string? Name,
     [Required(ErrorMessage = "O ID do Paciente não pode ser nulo!")]
-    int? PatientId, 
+    int? PatientId,
     [Required(ErrorMessage = "O ID do Setor não pode ser nulo!")]
-    int? SectorId);
+    int? SectorId,
+    string? Description);
+    
+

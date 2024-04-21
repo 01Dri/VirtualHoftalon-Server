@@ -14,14 +14,15 @@ public class Appointment
     public int? Month { get; set; }
     public int? Year { get; set;}
     public string? Hour { get; set;}
+    
+    public string? Description { get; set; }
 
     public Appointment()
     {
         
     }
 
-    public Appointment(int? id, string name, int? patientId, Patient? patient, int? doctorId, Doctor? doctor, int? sectorId, Sector? sector, 
-        int? day, int? month, int? year, string? hour)
+    public Appointment(int? id, string name, int? patientId, Patient? patient, int? doctorId, Doctor? doctor, int? sectorId, Sector? sector, int? day, int? month, int? year, string? hour, string? description)
     {
         Id = id;
         Name = name;
@@ -35,6 +36,6 @@ public class Appointment
         Month = month;
         Year = year;
         Hour = hour;
+        Description = description;
     }
-    
 }

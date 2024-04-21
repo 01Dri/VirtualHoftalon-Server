@@ -13,6 +13,8 @@ public interface IAppointmentBuilder
     IAppointmentBuilder WithMonth(int? month);
     IAppointmentBuilder WithYear(int? year);
     IAppointmentBuilder WithHour(string? hour);
+    IAppointmentBuilder WithDescription(string? description);
+
 
     Appointment Build();
 
