@@ -53,14 +53,12 @@ public class PDFGeneratorIntegrationTests
     
     private bool FindPDF(string pdfName, string folder)
     {
-        // Verifica se o diretório existe
         if (Directory.Exists(folder))
         {
-            // Verifica se o arquivo com o nome especificado existe em algum lugar dentro do diretório
             return Directory.GetFiles(folder, pdfName, SearchOption.AllDirectories).Length > 0;
         }
     
-        return false; // Retorna false se o diretório não existir
+        return false;
     }
     
     private string ExtractTextFromPDF(string pathToPDF)
