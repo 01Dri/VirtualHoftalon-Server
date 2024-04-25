@@ -62,6 +62,10 @@
               "target": "Package",
               "version": "[9.0.0-preview.3.24172.4, )"
             },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.9.0, )"
+            },
             "Moq": {
               "target": "Package",
               "version": "[4.20.70, )"
@@ -81,6 +85,14 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
+            },
+            "Verify.QuestPDF": {
+              "target": "Package",
+              "version": "[2.2.2, )"
+            },
+            "iTextSharp": {
+              "target": "Package",
+              "version": "[5.5.13.3, )"
             },
             "xunit": {
               "target": "Package",
