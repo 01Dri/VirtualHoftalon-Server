@@ -14,8 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-Settings.License = LicenseType.Community;
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+// string connectionString = Environment.GetEnvironmentVariable("DefaultConnection");
+
 builder.Services.AddDbContext<ModelsContext>(options =>
     options.UseNpgsql(connectionString));
 
@@ -36,7 +37,6 @@ builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 
 
-var test = "";
 var app = builder.Build();
 app.UseErrorHandlerMiddleware();
 if (app.Environment.IsDevelopment())
