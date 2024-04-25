@@ -16,8 +16,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 Settings.License = LicenseType.Community;
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ModelsContext>(options => options.UseSqlServer(connectionString));
-
+builder.Services.AddDbContext<ModelsContext>(options =>
+    options.UseNpgsql(connectionString));
 
 builder.Services.AddScoped<ISectorRepository, SectorRepository>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();

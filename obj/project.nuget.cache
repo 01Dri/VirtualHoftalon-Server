@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "PY/X1Yc5L2ONqSWnhOmcVGQK7iu1VuvPYZqKBG/W1oXZe508D1M+2isNnUYKVNKtW7wL5mmMKes8NWNXsHBnSQ==",
+  "dgSpecHash": "7xxOvQzT+h8Sz+GSyZayM6I0VFpAMFdiEsS+DznFe740sxfz3CrGG9v/tK20v1A36PnQi9f3V4ou5u7YDjamAw==",
   "success": true,
   "projectFilePath": "C:\\Users\\didvg\\Desktop\\PROJETOS\\VirtualHoftalon-Server\\VirtualHoftalon-Server.csproj",
   "expectedPackageFiles": [
@@ -51,6 +51,8 @@
     "C:\\Users\\didvg\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\didvg\\.nuget\\packages\\mono.texttemplating\\3.0.0-preview-0052-g5d0f76c785\\mono.texttemplating.3.0.0-preview-0052-g5d0f76c785.nupkg.sha512",
     "C:\\Users\\didvg\\.nuget\\packages\\moq\\4.20.70\\moq.4.20.70.nupkg.sha512",
+    "C:\\Users\\didvg\\.nuget\\packages\\npgsql\\8.0.2\\npgsql.8.0.2.nupkg.sha512",
+    "C:\\Users\\didvg\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\9.0.0-preview.3\\npgsql.entityframeworkcore.postgresql.9.0.0-preview.3.nupkg.sha512",
     "C:\\Users\\didvg\\.nuget\\packages\\questpdf\\2024.3.0\\questpdf.2024.3.0.nupkg.sha512",
     "C:\\Users\\didvg\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "C:\\Users\\didvg\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",

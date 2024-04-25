@@ -53,7 +53,7 @@ public class Patient
         Cpf = cpf;
         Rg = rg;
         Email = email;
-        DateBirth = dateBirth;
+        DateBirth = DateTime.SpecifyKind(dateBirth, DateTimeKind.Utc);
         ClassificationPatient = classificationPatient;
         Appointments = appointments;
     }
