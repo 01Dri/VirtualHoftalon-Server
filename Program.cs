@@ -36,7 +36,7 @@ builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 
 
-
+var test = "";
 var app = builder.Build();
 app.UseErrorHandlerMiddleware();
 if (app.Environment.IsDevelopment())
