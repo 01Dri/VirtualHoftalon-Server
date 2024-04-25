@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Text.Json;
 
 namespace VirtualHoftalon_Server.Exceptions;
@@ -25,35 +26,21 @@ public class ErrorHandlerMiddleware
 
     private static Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
+        Dictionary<Type, int> exceptionStatusCodes = new Dictionary<Type, int>()
+        {
+            { typeof(NotFoundSectorException), StatusCodes.Status404NotFound },
+            { typeof(NotFoundDoctorException), StatusCodes.Status404NotFound },
+            { typeof(NotFoundPatientException), StatusCodes.Status404NotFound },
+            { typeof(PatientArgumentsInvalidException), StatusCodes.Status400BadRequest },
+            { typeof(InvalidArgumentsUpdateSectorException), StatusCodes.Status400BadRequest },
+            { typeof(FailedToSetAppointmentOnPDFGeneratorException), StatusCodes.Status400BadRequest }
+        };
+        
         var statusCode = StatusCodes.Status500InternalServerError; // Internal Server Error por padrão
-
-        if (exception is NotFoundSectorException)
+        if (exceptionStatusCodes.ContainsKey(exception.GetType()))
         {
-            statusCode = StatusCodes.Status404NotFound;
+            statusCode = exceptionStatusCodes[exception.GetType()];
         }
-        
-        if (exception is NotFoundDoctorException)
-        {
-            statusCode = StatusCodes.Status404NotFound;
-        }
-        
-        if (exception is NotFoundPatientException)
-        {
-            statusCode = StatusCodes.Status404NotFound;
-        }
-
-        if (exception is PatientArgumentsInvalidException)
-        {
-            statusCode = StatusCodes.Status400BadRequest;
-            
-        }
-        
-        if (exception is InvalidArgumentsUpdateSectorException)
-        {
-            statusCode = StatusCodes.Status400BadRequest;
-        }
-
-        // Adicione outras verificações de exceção conforme necessário
 
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = statusCode;
