@@ -29,7 +29,6 @@
 
     <ItemGroup>
       <Folder Include="PDFs\" />
-      <Folder Include="Tests\Unittests\" />
     </ItemGroup>
 
 </Project>

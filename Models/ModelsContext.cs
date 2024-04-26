@@ -13,8 +13,8 @@ public class ModelsContext : DbContext
     public virtual DbSet<Doctor> Doctors { get; set;}
     public virtual DbSet<Patient> Patients { get; set;}
     public virtual DbSet<Sector> Sectors { get; set;}
-    
     public virtual DbSet<Appointment> Appointments { get; set;}
+    public virtual DbSet<PatientsQueue?> PatientsQueues { get; set;}
 
     
     
@@ -62,11 +62,17 @@ public class ModelsContext : DbContext
 
         });
 
-        
+        modelBuilder.Entity<PatientsQueue>(p =>
+        {
+            p.HasKey(k => k.Id);
+            p.HasIndex(k => k.PatientId)
+                .IsUnique();
+        });
         OnModelCreatingPartial(modelBuilder);
     }
 
     private void OnModelCreatingPartial(ModelBuilder modelBuilder)
     {
+        
     }
 }

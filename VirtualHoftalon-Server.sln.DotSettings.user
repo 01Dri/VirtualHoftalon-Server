@@ -2,5 +2,10 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=961d9fbe_002D75b8_002D4e3b_002D915f_002D216ab7579801/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TestPDFGeneratorAppointmentsById" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::2AEAA8C2-54F5-44D8-871B-E63D99785DFF::net8.0::VirtualHoftalon_Server.Tests.IntegrationTests.PDFGeneratorIntegrationTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::2AEAA8C2-54F5-44D8-871B-E63D99785DFF::net8.0::VirtualHoftalon_Server.Tests.Unittests.PatientQueueServicesTest.TestSavePatientToQueue&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::2AEAA8C2-54F5-44D8-871B-E63D99785DFF::net8.0::VirtualHoftalon_Server.Tests.Unittests.PatientQueueServicesTest.TestSavePatientQueue&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::2AEAA8C2-54F5-44D8-871B-E63D99785DFF::net8.0::VirtualHoftalon_Server.Tests.Unittests.PatientQueueServicesTest.TestFailedToSavePatientQueue&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::2AEAA8C2-54F5-44D8-871B-E63D99785DFF::net8.0::VirtualHoftalon_Server.Tests.Unittests.PatientQueueServicesTest.TestFailedToSavePatientQueueOnNullAppointment&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::2AEAA8C2-54F5-44D8-871B-E63D99785DFF::net8.0::VirtualHoftalon_Server.Tests.Unittests.PatientQueueServicesTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

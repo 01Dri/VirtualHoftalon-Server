@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace VirtualHoftalon_Server.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialV12 : Migration
+    public partial class InitialV1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -52,7 +52,8 @@ namespace VirtualHoftalon_Server.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
                     RoomNumber = table.Column<int>(type: "integer", nullable: true),
-                    DoctorId = table.Column<int>(type: "integer", nullable: false)
+                    DoctorId = table.Column<int>(type: "integer", nullable: false),
+                    Tag = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -104,6 +105,34 @@ namespace VirtualHoftalon_Server.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "PatientsQueues",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PatientId = table.Column<int>(type: "integer", nullable: true),
+                    AppointmentId = table.Column<int>(type: "integer", nullable: false),
+                    IsPreferred = table.Column<bool>(type: "boolean", nullable: false),
+                    Position = table.Column<int>(type: "integer", nullable: false),
+                    Password = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PatientsQueues", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PatientsQueues_Appointments_AppointmentId",
+                        column: x => x.AppointmentId,
+                        principalTable: "Appointments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PatientsQueues_Patients_PatientId",
+                        column: x => x.PatientId,
+                        principalTable: "Patients",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Appointments_DoctorId",
                 table: "Appointments",
@@ -138,6 +167,17 @@ namespace VirtualHoftalon_Server.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_PatientsQueues_AppointmentId",
+                table: "PatientsQueues",
+                column: "AppointmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PatientsQueues_PatientId",
+                table: "PatientsQueues",
+                column: "PatientId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Sectors_DoctorId",
                 table: "Sectors",
                 column: "DoctorId");
@@ -146,6 +186,9 @@ namespace VirtualHoftalon_Server.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "PatientsQueues");
+
             migrationBuilder.DropTable(
                 name: "Appointments");
 

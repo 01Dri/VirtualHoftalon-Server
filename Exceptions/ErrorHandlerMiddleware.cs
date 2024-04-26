@@ -33,7 +33,8 @@ public class ErrorHandlerMiddleware
             { typeof(NotFoundPatientException), StatusCodes.Status404NotFound },
             { typeof(PatientArgumentsInvalidException), StatusCodes.Status400BadRequest },
             { typeof(InvalidArgumentsUpdateSectorException), StatusCodes.Status400BadRequest },
-            { typeof(FailedToSetAppointmentOnPDFGeneratorException), StatusCodes.Status400BadRequest }
+            { typeof(FailedToSetAppointmentOnPDFGeneratorException), StatusCodes.Status400BadRequest },
+            { typeof(NotFoundLastPositionPatientQueue), StatusCodes.Status400BadRequest }
         };
         
         var statusCode = StatusCodes.Status500InternalServerError; // Internal Server Error por padrão

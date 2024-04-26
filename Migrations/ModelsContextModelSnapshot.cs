@@ -140,6 +140,40 @@ namespace VirtualHoftalon_Server.Migrations
                     b.ToTable("Patients");
                 });
 
+            modelBuilder.Entity("VirtualHoftalon_Server.Models.PatientsQueue", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsPreferred")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("PatientId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Position")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppointmentId");
+
+                    b.HasIndex("PatientId")
+                        .IsUnique();
+
+                    b.ToTable("PatientsQueues");
+                });
+
             modelBuilder.Entity("VirtualHoftalon_Server.Models.Sector", b =>
                 {
                     b.Property<int>("Id")
@@ -156,6 +190,9 @@ namespace VirtualHoftalon_Server.Migrations
                         .HasColumnType("text");
 
                     b.Property<int?>("RoomNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Tag")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -187,6 +224,23 @@ namespace VirtualHoftalon_Server.Migrations
                     b.Navigation("doctor");
 
                     b.Navigation("patient");
+                });
+
+            modelBuilder.Entity("VirtualHoftalon_Server.Models.PatientsQueue", b =>
+                {
+                    b.HasOne("VirtualHoftalon_Server.Models.Appointment", "Appointment")
+                        .WithMany()
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VirtualHoftalon_Server.Models.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId");
+
+                    b.Navigation("Appointment");
+
+                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("VirtualHoftalon_Server.Models.Sector", b =>
