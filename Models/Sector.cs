@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using VirtualHoftalon_Server.Enums;
 
 namespace VirtualHoftalon_Server.Models;

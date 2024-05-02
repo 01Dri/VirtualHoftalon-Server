@@ -1,4 +1,5 @@
 ﻿using VirtualHoftalon_Server.Models;
+using VirtualHoftalon_Server.Models.Dto.Patient;
 using VirtualHoftalon_Server.Models.Dto.PatientQueus;
 
 namespace VirtualHoftalon_Server.Services.Interfaces;
@@ -13,7 +14,7 @@ public interface IPatientQueuesService
 
     PatientQueuesResponseDTO UpdateById(int id, PatientQueuesUpdateDTO patient);
 
-    List<Patient> GetAllPatientsByAppointmentHour(string hour);
+    IEnumerable<PatientQueuesResponseDTO> GetAllPatientsBySectorAndAppointmentHour(int sectorId, string hour);
 
     int GetPosition(string hour, int? sectorId);
     void DeleteById(int id);

@@ -4,5 +4,9 @@ public record PatientQueuesResponseDTO(
     int? Id,
     int? PatientId,
     int Position,
-    string Password
+    string AppointmentName,
+    string AppointmentHour,
+    string PatientName,
+    string Password,
+    bool Preferencial
     );

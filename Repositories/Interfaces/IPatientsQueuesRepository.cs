@@ -9,7 +9,9 @@ public interface IPatientsQueuesRepository
     PatientsQueue? GetPatientsQueueById(int? id);
     PatientsQueue UpdatePatientsQueue(PatientsQueue patientsQueue);
     bool DeletePatientsQueue(PatientsQueue patients);
-
     int? GetLastPositionBySectorAndHour(string hour, int? sectorId);
+    IEnumerable<PatientsQueue?> GetAllPatientsBySectorAndAppointmentHour(int sectorId, string? hour);
+    
+    
 
 }

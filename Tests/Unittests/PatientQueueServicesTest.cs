@@ -54,6 +54,8 @@ public class PatientQueueServicesTest
         mockPatientQueueRepo.Setup(pq =>
                 pq.GetLastPositionBySectorAndHour(mockAppointment.Hour, mockAppointment.SectorId))
             .Returns(35);
+        
+        
         Assert.Throws<NotFoundPatientException>(() => patientQueuesService.SavePatient(patientQueuesRequestDto));
         mockPatientQueueRepo.Verify(p => p.GetLastPositionBySectorAndHour(mockAppointment.Hour, mockAppointment.SectorId), Times.Never);
     }

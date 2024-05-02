@@ -40,17 +40,20 @@ public class PatientQueuesService : IPatientQueuesService
              Password =  password
          };
          _patientsQueuesRepository.SavePatientsQueue(patientsQueue);
-         return ToResponseDTO(patientsQueue, position, password);
+         return ToResponseDTO(patientsQueue);
     }
 
     public IEnumerable<PatientQueuesResponseDTO> GetAll()
     {
-        throw new NotImplementedException();
+        return _patientsQueuesRepository.GetPatientsQueues()
+            .Select(ap => ToResponseDTO(ap))
+            .ToList();
     }
 
     public PatientQueuesResponseDTO GetOneById(int id)
     {
-        throw new NotImplementedException();
+        return ToResponseDTO(_patientsQueuesRepository.GetPatientsQueueById(id) ?? 
+                             throw new NotFoundLastPositionPatientQueue("Not found queue"));
     }
 
     public PatientQueuesResponseDTO UpdateById(int id, PatientQueuesUpdateDTO patient)
@@ -58,9 +61,10 @@ public class PatientQueuesService : IPatientQueuesService
         throw new NotImplementedException();
     }
 
-    public List<Patient> GetAllPatientsByAppointmentHour(string hour)
+    public IEnumerable<PatientQueuesResponseDTO> GetAllPatientsBySectorAndAppointmentHour(int sectorId, string hour)
     {
-        throw new NotImplementedException();
+        return _patientsQueuesRepository.GetAllPatientsBySectorAndAppointmentHour(sectorId, hour)
+            .Select(ap => ToResponseDTO(ap)).ToList();
     }
 
     public int GetPosition(string hour, int? sectorId)
@@ -78,10 +82,13 @@ public class PatientQueuesService : IPatientQueuesService
     {
         return $"{tag}{position}";
     }
-    private PatientQueuesResponseDTO ToResponseDTO(PatientsQueue patientsQueue, int position, string password)
+    private PatientQueuesResponseDTO ToResponseDTO(PatientsQueue patientsQueue)
     {
         return new PatientQueuesResponseDTO(patientsQueue.Id, patientsQueue.PatientId,
-            position, password);
+            patientsQueue.Position, patientsQueue.Appointment.Name,
+            patientsQueue.Appointment.Hour,
+            patientsQueue.Patient.Name, patientsQueue.Password,
+            patientsQueue.IsPreferred);
     }
 
 }

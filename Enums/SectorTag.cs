@@ -4,8 +4,8 @@ namespace VirtualHoftalon_Server.Enums;
 
 public enum SectorTag
 {
-    [Description ("Para pacientes não preferenciais")]
+    [Description ("Ambulatorio Cornea")]
     X = 1,
-    [Description ("Para pacientes preferenciais")]
+    [Description ("Ambulatorio Catarata")]
     P = 2
 }

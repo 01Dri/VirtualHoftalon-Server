@@ -84,4 +84,25 @@ public class PatientsQueuesRepository : IPatientsQueuesRepository
             return 0;
         }
     }
+
+    public IEnumerable<PatientsQueue?> GetAllPatientsBySectorAndAppointmentHour(int sectorId, string? hour)
+    {
+        if (hour == null)
+        {
+            return QueryWithIncludeEntities()
+                .Where(pq => pq.Appointment.SectorId == sectorId)
+                .ToList();
+        }
+        return QueryWithIncludeEntities()
+            .Where(pq => pq.Appointment.SectorId == sectorId && pq.Appointment.Hour == hour)
+            .ToList();
+    }
+
+    private IQueryable<PatientsQueue> QueryWithIncludeEntities()
+    {
+        return _ModelsContext.PatientsQueues
+            .Include(pq => pq.Appointment)
+            .Include(pq => pq.Patient);
+    } 
+    
 }
