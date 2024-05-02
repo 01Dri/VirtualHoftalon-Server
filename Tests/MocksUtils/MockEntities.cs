@@ -43,6 +43,10 @@ public class MockEntities
         };
 
     }
-    
-    
+
+
+    public static PatientsQueue PatientQueueMock()
+    {
+        return new PatientsQueue();
+    }
 }

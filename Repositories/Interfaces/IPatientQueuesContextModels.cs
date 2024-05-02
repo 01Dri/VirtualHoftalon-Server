@@ -2,18 +2,21 @@
 
 namespace VirtualHoftalon_Server.Repositories.Interfaces;
 
-public interface IPatientsQueuesRepository
+public interface IPatientQueuesContextModels
 {
-    IEnumerable<PatientsQueue?> GetPatientsQueues();
+    IEnumerable<PatientsQueue> GetAllPatientsQueues();
+    
     PatientsQueue SavePatientsQueue(PatientsQueue patients);
+    
     PatientsQueue? GetPatientsQueueById(int? id);
-    PatientsQueue UpdatePatientsQueue(PatientsQueue patientsQueue);
+    
+    
     bool DeletePatientsQueue(PatientsQueue patients);
+    
     int? GetLastPositionBySectorAndHour(string hour, int? sectorId);
+    
     IEnumerable<PatientsQueue?> GetAllPatientsBySectorAndAppointmentHour(int sectorId, string? hour);
+    
     PatientsQueue CallPatientOnQueueBySectorId(int sectorId);
     
-
-
-
 }

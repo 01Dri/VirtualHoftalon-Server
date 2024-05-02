@@ -1,108 +1,55 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using VirtualHoftalon_Server.Exceptions;
-using VirtualHoftalon_Server.Models;
+﻿using VirtualHoftalon_Server.Models;
 using VirtualHoftalon_Server.Repositories.Interfaces;
 
 namespace VirtualHoftalon_Server.Repositories;
 
 public class PatientsQueuesRepository : IPatientsQueuesRepository
 {
-    private readonly ModelsContext _ModelsContext;
+    private readonly IPatientQueuesContextModels _context;
 
-    public PatientsQueuesRepository(ModelsContext modelsContext)
+    public PatientsQueuesRepository(IPatientQueuesContextModels context)
     {
-        _ModelsContext = modelsContext;
+        _context = context;
     }
 
     public IEnumerable<PatientsQueue?> GetPatientsQueues()
     {
-        return _ModelsContext.PatientsQueues
-            .Include(p => p.Patient)
-            .Include(p => p.Appointment)
-            .ToList();
+        return _context.GetAllPatientsQueues();
     }
 
     public PatientsQueue SavePatientsQueue(PatientsQueue patients)
     {
-        {
-            try
-            {
-                _ModelsContext.PatientsQueues.Add(patients);
-                _ModelsContext.SaveChanges();
-                return patients;
-            }
-            catch (DbUpdateException ex)
-            {
-                {
-                    var innerException = ex.InnerException as SqlException;
-                    if (innerException != null &&
-                        innerException.Number == 2601) // Número do erro para violação de chave única
-                    {
-                        throw new UniqueConstrangeException("Chave unica violada!");
-                    }
-
-                    throw new Exception(ex.Message);
-                }
-            }
-        }
+        return _context.SavePatientsQueue(patients);
     }
 
     public PatientsQueue? GetPatientsQueueById(int? id)
     {
-        return _ModelsContext.PatientsQueues
-            .Include(a => a.Patient)
-            .Include(a => a.Appointment)
-            .FirstOrDefault(a => a.Id == id);
+        return _context.GetPatientsQueueById(id);
     }
 
     public PatientsQueue UpdatePatientsQueue(PatientsQueue patientsQueue)
     {
-        _ModelsContext.Entry(patientsQueue).State = EntityState.Modified;
-        _ModelsContext.SaveChanges();
-        return patientsQueue;
+        throw new NotImplementedException();
     }
 
     public bool DeletePatientsQueue(PatientsQueue patients)
     {
-        _ModelsContext.PatientsQueues.Remove(patients);
-        _ModelsContext.SaveChanges();
-        return true;
+        return _context.DeletePatientsQueue(patients);
     }
 
     public int? GetLastPositionBySectorAndHour(string hour, int? sectorId)
     {
-        try
-        {
-            return _ModelsContext.PatientsQueues
-                .Where(pq => pq.Appointment.Hour == hour
-                             && pq.Appointment.SectorId == sectorId)
-                .Max(pq => pq.Position);
-        }
-        catch (InvalidOperationException e)
-        {
-            return 0;
-        }
+        return _context.GetLastPositionBySectorAndHour(hour, sectorId);
     }
 
     public IEnumerable<PatientsQueue?> GetAllPatientsBySectorAndAppointmentHour(int sectorId, string? hour)
     {
-        if (hour == null)
-        {
-            return QueryWithIncludeEntities()
-                .Where(pq => pq.Appointment.SectorId == sectorId)
-                .ToList();
-        }
-        return QueryWithIncludeEntities()
-            .Where(pq => pq.Appointment.SectorId == sectorId && pq.Appointment.Hour == hour)
-            .ToList();
+        return _context.GetAllPatientsBySectorAndAppointmentHour(sectorId, hour);
     }
 
-    private IQueryable<PatientsQueue> QueryWithIncludeEntities()
+    public PatientsQueue CallPatientOnQueueBySectorId(int sectorId)
     {
-        return _ModelsContext.PatientsQueues
-            .Include(pq => pq.Appointment)
-            .Include(pq => pq.Patient);
-    } 
-    
+        return _context.CallPatientOnQueueBySectorId(sectorId);
+    }
+
 }

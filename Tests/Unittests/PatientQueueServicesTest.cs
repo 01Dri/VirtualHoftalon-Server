@@ -47,6 +47,16 @@ public class PatientQueueServicesTest
     }
 
     [Fact]
+    public void TestCallPatientFromQueue()
+    {
+        
+        // Continuar esse teste depois
+        var mock1 = MockEntities.PatientQueueMock();
+        mock1.Id = 1;
+        mockPatientQueueRepo.Setup(ap => ap.CallPatientOnQueueBySectorId(1)).Returns(mock1);
+    }
+
+    [Fact]
     public void TestFailedToSavePatientQueueOnNullPatient()
     {
         mockPatientRepo.Setup(p => p.GetPatientById(1)).Returns((Patient)null);

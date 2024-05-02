@@ -15,7 +15,6 @@ public class Doctor
 
     public Doctor()
     {
-        
     }
 
     public Doctor(int? id, string? name)

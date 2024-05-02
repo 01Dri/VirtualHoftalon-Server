@@ -6,6 +6,7 @@ public record PatientQueuesResponseDTO(
     int Position,
     string AppointmentName,
     string AppointmentHour,
+    int? SectorId,
     string PatientName,
     string Password,
     bool Preferencial

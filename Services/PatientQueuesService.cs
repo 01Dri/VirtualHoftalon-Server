@@ -78,6 +78,14 @@ public class PatientQueuesService : IPatientQueuesService
         throw new NotImplementedException();
     }
 
+    public PatientQueuesResponseDTO CallPatientOnQueueBySectorId(int sectorId)
+    {
+        PatientsQueue patientsQueue = _patientsQueuesRepository.CallPatientOnQueueBySectorId(sectorId) ?? throw new NotFoundSectorException("Not found Sector!");
+        PatientQueuesResponseDTO  result = ToResponseDTO(_patientsQueuesRepository.CallPatientOnQueueBySectorId(sectorId));
+        //_patientsQueuesRepository.DeletePatientsQueue(patientsQueue);
+        return result;
+    }
+
     private string GeneratePasswordToPatient(int position, string tag)
     {
         return $"{tag}{position}";
@@ -87,6 +95,7 @@ public class PatientQueuesService : IPatientQueuesService
         return new PatientQueuesResponseDTO(patientsQueue.Id, patientsQueue.PatientId,
             patientsQueue.Position, patientsQueue.Appointment.Name,
             patientsQueue.Appointment.Hour,
+            patientsQueue.Appointment.SectorId,
             patientsQueue.Patient.Name, patientsQueue.Password,
             patientsQueue.IsPreferred);
     }

@@ -18,6 +18,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ModelsContext>(options =>
     options.UseNpgsql(connectionString));
 
+builder.Services.AddScoped<IPatientQueuesContextModels, PatientQueuesContextModels>();
 builder.Services.AddScoped<ISectorRepository, SectorRepository>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();

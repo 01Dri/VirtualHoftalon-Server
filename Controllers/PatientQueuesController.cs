@@ -47,4 +47,10 @@ public class PatientQueuesController : Microsoft.AspNetCore.Mvc.Controller
         return Ok(_patientQueuesService.GetAllPatientsBySectorAndAppointmentHour(id, hour));
     }
     
+    [HttpGet] 
+    [Route("/patients/queues/get/{id}")]
+    public IActionResult GetByHour(int id)
+    {
+        return Ok(_patientQueuesService.CallPatientOnQueueBySectorId(id));
+    }
 }

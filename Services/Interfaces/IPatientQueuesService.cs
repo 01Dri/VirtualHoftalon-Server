@@ -18,6 +18,8 @@ public interface IPatientQueuesService
 
     int GetPosition(string hour, int? sectorId);
     void DeleteById(int id);
-    
+
+    PatientQueuesResponseDTO CallPatientOnQueueBySectorId(int sectorId);
+
 }
 
