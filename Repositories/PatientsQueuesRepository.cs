@@ -1,4 +1,5 @@
-﻿using VirtualHoftalon_Server.Models;
+﻿using VirtualHoftalon_Server.Exceptions;
+using VirtualHoftalon_Server.Models;
 using VirtualHoftalon_Server.Repositories.Interfaces;
 
 namespace VirtualHoftalon_Server.Repositories;
@@ -49,7 +50,18 @@ public class PatientsQueuesRepository : IPatientsQueuesRepository
 
     public PatientsQueue CallPatientOnQueueBySectorId(int sectorId)
     {
-        return _context.CallPatientOnQueueBySectorId(sectorId);
-    }
+        IEnumerable<PatientsQueue> patientsQueuesBySectorId = _context.GetAllPatientsBySectorAndAppointmentHour(sectorId, null);
+        if (patientsQueuesBySectorId == null || patientsQueuesBySectorId.Count() == 0)
+        {
+            throw new EmptyListPatientQueuesException($"Patients queues from sector: {sectorId} is empty!");
+        }
 
+        IEnumerable<PatientsQueue> patientsPreffered = patientsQueuesBySectorId.Where(ap => ap.IsPreferred);
+        if (patientsPreffered.Any())
+        {
+            return patientsPreffered.First();
+        }
+        // Retorna um paciente não preferencial baseado na sua posição
+        return patientsQueuesBySectorId.OrderBy(ap => ap.Position).First();
+    }
 }

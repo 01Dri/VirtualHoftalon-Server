@@ -10,13 +10,9 @@ public interface IPatientQueuesContextModels
     
     PatientsQueue? GetPatientsQueueById(int? id);
     
-    
     bool DeletePatientsQueue(PatientsQueue patients);
     
     int? GetLastPositionBySectorAndHour(string hour, int? sectorId);
     
     IEnumerable<PatientsQueue?> GetAllPatientsBySectorAndAppointmentHour(int sectorId, string? hour);
-    
-    PatientsQueue CallPatientOnQueueBySectorId(int sectorId);
-    
 }

@@ -92,28 +92,13 @@ public class PatientQueuesContextModels : IPatientQueuesContextModels
             .ToList();
     }
 
-    public PatientsQueue CallPatientOnQueueBySectorId(int sectorId)
-    {
-        IEnumerable<PatientsQueue?> patientsQueues = GetAllPatientsBySectorAndAppointmentHour(sectorId, null);
-        PatientsQueue patientToReturn = patientsQueues.FirstOrDefault(ap => ap.IsPreferred, null);
-        Dictionary<PatientsQueue, int> patientsPosition = new Dictionary<PatientsQueue, int>();
-        if (patientToReturn == null)
-        {
-            foreach (var pq in patientsQueues)
-            {
-                patientsPosition.Add(pq, pq.Position);
-            } 
-            return patientsPosition.OrderBy(kv => kv.Value).First().Key;
-        }
-
-        return patientToReturn;
-    }
+    
     
     private IQueryable<PatientsQueue> QueryWithIncludeEntities()
     {
         return _modelsContext.PatientsQueues
             .Include(pq => pq.Appointment)
             .Include(pq => pq.Patient);
-    } 
+    }
 
 }

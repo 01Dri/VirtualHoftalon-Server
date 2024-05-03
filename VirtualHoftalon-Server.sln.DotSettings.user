@@ -1,5 +1,5 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=38a3678e_002De37e_002D48aa_002D8288_002D400279444455/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="PDFGeneratorIntegrationTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=38a3678e_002De37e_002D48aa_002D8288_002D400279444455/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PDFGeneratorIntegrationTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::2AEAA8C2-54F5-44D8-871B-E63D99785DFF::net8.0::VirtualHoftalon_Server.Tests.IntegrationTests.PDFGeneratorIntegrationTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::2AEAA8C2-54F5-44D8-871B-E63D99785DFF::net8.0::VirtualHoftalon_Server.Tests.Unittests.PatientQueueServicesTest.TestSavePatientToQueue&lt;/TestId&gt;&#xD;
@@ -10,7 +10,7 @@
     &lt;TestId&gt;xUnit::2AEAA8C2-54F5-44D8-871B-E63D99785DFF::net8.0::VirtualHoftalon_Server.Tests.Unittests.PatientQueueRepositoryTest.TestCallPatientFromQueueBySectorId&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=961d9fbe_002D75b8_002D4e3b_002D915f_002D216ab7579801/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestPDFGeneratorAppointmentsById" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=961d9fbe_002D75b8_002D4e3b_002D915f_002D216ab7579801/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TestPDFGeneratorAppointmentsById" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::2AEAA8C2-54F5-44D8-871B-E63D99785DFF::net8.0::VirtualHoftalon_Server.Tests.IntegrationTests.PDFGeneratorIntegrationTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::2AEAA8C2-54F5-44D8-871B-E63D99785DFF::net8.0::VirtualHoftalon_Server.Tests.Unittests.PatientQueueServicesTest.TestSavePatientToQueue&lt;/TestId&gt;&#xD;
@@ -19,5 +19,9 @@
     &lt;TestId&gt;xUnit::2AEAA8C2-54F5-44D8-871B-E63D99785DFF::net8.0::VirtualHoftalon_Server.Tests.Unittests.PatientQueueServicesTest.TestFailedToSavePatientQueueOnNullAppointment&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::2AEAA8C2-54F5-44D8-871B-E63D99785DFF::net8.0::VirtualHoftalon_Server.Tests.Unittests.PatientQueueServicesTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::2AEAA8C2-54F5-44D8-871B-E63D99785DFF::net8.0::VirtualHoftalon_Server.Tests.Unittests.PatientQueueRepositoryTest.TestCallPatientFromQueueBySectorId&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::2AEAA8C2-54F5-44D8-871B-E63D99785DFF::net8.0::VirtualHoftalon_Server.Tests.Unittests.PatientQueueRepositoryTest.TestCallPatientFromQueueBySectorIdWithoutPreferential&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::2AEAA8C2-54F5-44D8-871B-E63D99785DFF::net8.0::VirtualHoftalon_Server.Tests.Unittests.PatientQueueRepositoryTest.TestCallPatientFromQueueBySectorIdWithPreferential&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::2AEAA8C2-54F5-44D8-871B-E63D99785DFF::net8.0::VirtualHoftalon_Server.Tests.Unittests.PatientQueueRepositoryTest.TestEmptyListPatientQueuesException&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::2AEAA8C2-54F5-44D8-871B-E63D99785DFF::net8.0::VirtualHoftalon_Server.Tests.Unittests.PatientQueueRepositoryTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
