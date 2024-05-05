@@ -64,4 +64,9 @@ public class PatientsQueuesRepository : IPatientsQueuesRepository
         // Retorna um paciente não preferencial baseado na sua posição
         return patientsQueuesBySectorId.OrderBy(ap => ap.Position).First();
     }
+
+    public PatientsQueue GetPatientQueueByPassword(string password)
+    {
+        return _context.GetPatientsQueueByPassword(password) ?? throw new NotFoundPatientOnQueueException("Not found patient on queue!");
+    }
 }

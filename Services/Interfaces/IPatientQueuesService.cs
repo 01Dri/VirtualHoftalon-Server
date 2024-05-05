@@ -20,6 +20,7 @@ public interface IPatientQueuesService
     void DeleteById(int id);
 
     PatientQueuesResponseDTO CallPatientOnQueueBySectorId(int sectorId);
+    bool ConfirmServicePatient(string password);
 
 }
 

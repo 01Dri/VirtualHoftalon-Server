@@ -31,11 +31,13 @@ public class ErrorHandlerMiddleware
             { typeof(NotFoundSectorException), StatusCodes.Status404NotFound },
             { typeof(NotFoundDoctorException), StatusCodes.Status404NotFound },
             { typeof(NotFoundPatientException), StatusCodes.Status404NotFound },
+            { typeof(NotFoundPatientOnQueueException), StatusCodes.Status404NotFound },
             { typeof(PatientArgumentsInvalidException), StatusCodes.Status400BadRequest },
             { typeof(InvalidArgumentsUpdateSectorException), StatusCodes.Status400BadRequest },
             { typeof(FailedToSetAppointmentOnPDFGeneratorException), StatusCodes.Status400BadRequest },
             { typeof(NotFoundLastPositionPatientQueue), StatusCodes.Status400BadRequest },
             { typeof(EmptyListPatientQueuesException), StatusCodes.Status400BadRequest }
+
 
         };
         

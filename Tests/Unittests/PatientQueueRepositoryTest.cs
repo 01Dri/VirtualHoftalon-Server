@@ -83,7 +83,6 @@ public class PatientQueueRepositoryTest
     [Fact]
     public void TestEmptyListPatientQueuesException()
     {
-
         this.mockContext.Setup(r =>
                 r.GetAllPatientsBySectorAndAppointmentHour(1, null))
             .Returns(new List<PatientsQueue>()); // Lista vazia

@@ -12,5 +12,4 @@ public record SectorRequestDTO
         [RegularExpression(@"^\d+$", ErrorMessage = "O campo ID deve conter apenas números inteiros.")]
         int DoctorId,
         [Required(ErrorMessage = "O campo TagId é obrigatório.")]
-        [RegularExpression(@"^\d+$", ErrorMessage = "O campo ID deve conter apenas números inteiros.")]
         int? TagId);

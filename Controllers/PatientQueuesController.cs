@@ -48,9 +48,16 @@ public class PatientQueuesController : Microsoft.AspNetCore.Mvc.Controller
     }
     
     [HttpGet] 
-    [Route("/patients/queues/get/{id}")]
+    [Route("/patients/queues/call/{id}")]
     public IActionResult GetByHour(int id)
     {
         return Ok(_patientQueuesService.CallPatientOnQueueBySectorId(id));
+    }
+    [HttpDelete] 
+    [Route("/patients/queues/confirm/{password}")]
+    public IActionResult ConfirmPatientByPassword(string password)
+    {
+        _patientQueuesService.ConfirmServicePatient(password); 
+        return NoContent();
     }
 }

@@ -56,7 +56,12 @@ public class PatientQueuesContextModels : IPatientQueuesContextModels
             .Include(a => a.Appointment)
             .FirstOrDefault(a => a.Id == id);
     }
-    
+
+    public PatientsQueue? GetPatientsQueueByPassword(string password)
+    {
+        return QueryWithIncludeEntities().FirstOrDefault(ap => ap.Password == password);
+    }
+
     public bool DeletePatientsQueue(PatientsQueue patients)
     {
         _modelsContext.PatientsQueues.Remove(patients);
@@ -92,8 +97,8 @@ public class PatientQueuesContextModels : IPatientQueuesContextModels
             .ToList();
     }
 
-    
-    
+
+
     private IQueryable<PatientsQueue> QueryWithIncludeEntities()
     {
         return _modelsContext.PatientsQueues

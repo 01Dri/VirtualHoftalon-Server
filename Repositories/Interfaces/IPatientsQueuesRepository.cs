@@ -12,7 +12,9 @@ public interface IPatientsQueuesRepository
     int? GetLastPositionBySectorAndHour(string hour, int? sectorId);
     IEnumerable<PatientsQueue?> GetAllPatientsBySectorAndAppointmentHour(int sectorId, string? hour);
     PatientsQueue CallPatientOnQueueBySectorId(int sectorId);
-    
+
+    PatientsQueue GetPatientQueueByPassword(string password);
+
 
 
 

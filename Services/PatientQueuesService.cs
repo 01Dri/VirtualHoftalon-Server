@@ -25,6 +25,11 @@ public class PatientQueuesService : IPatientQueuesService
     {
          Patient patientByPatientQueue = _patientRepository.GetPatientById(patient.PatientId) ?? throw new NotFoundPatientException("Not found Patient!");
          Appointment appointmentByPatientQueue = _appointmentRepository.GetAppointmentById(patient.AppointmentId) ?? throw new NotFoundAppointmentException("Not found Appointment");
+         if (!patientByPatientQueue.Appointments.Contains(appointmentByPatientQueue))
+         {
+             throw new InvalidAppointmentIdException(
+                 $"Appointment id: {patient.AppointmentId} does not belong this user");
+         }
          int position = GetPosition(appointmentByPatientQueue.Hour, appointmentByPatientQueue.SectorId);
          SectorTag tag = appointmentByPatientQueue.Sector.Tag;
          string password = GeneratePasswordToPatient(position, tag.ToString());
@@ -84,6 +89,12 @@ public class PatientQueuesService : IPatientQueuesService
         PatientQueuesResponseDTO  result = ToResponseDTO(_patientsQueuesRepository.CallPatientOnQueueBySectorId(sectorId));
         //_patientsQueuesRepository.DeletePatientsQueue(patientsQueue);
         return result;
+    }
+
+    public bool ConfirmServicePatient(string password)
+    {
+        PatientsQueue patientsQueue = _patientsQueuesRepository.GetPatientQueueByPassword(password);
+        return _patientsQueuesRepository.DeletePatientsQueue(patientsQueue);
     }
 
     private string GeneratePasswordToPatient(int position, string tag)

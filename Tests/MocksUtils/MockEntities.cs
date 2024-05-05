@@ -8,7 +8,8 @@ public class MockEntities
 
     public static Sector GetSectorMock()
     {
-        return new Sector(1, "diego", 10, 1, new List<Appointment>(), SectorTag.P);
+        return new Sector(1, "diego", 10, 1, new List<Appointment>(),
+            SectorTag.X);
     }
 
     public static Doctor GetDoctorMock()
@@ -33,7 +34,7 @@ public class MockEntities
             DoctorId = 2,
             doctor = new Doctor { Id = 2, Name = "Dr. Smith" },
             SectorId = 3,
-            Sector = new Sector { Id = 3, Name = "Cardiology", Tag = SectorTag.P},
+            Sector = new Sector { Id = 3, Name = "Cardiology", Tag = SectorTag.X},
             Day = 25,
             Month = 4,
             Year = 2024,
