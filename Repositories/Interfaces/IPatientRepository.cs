@@ -14,4 +14,6 @@ public interface IPatientRepository
     Patient UpdatePatient(Patient patientToUpdate);
     bool DeletePatient(Patient patient);
     
+    
+    
 }

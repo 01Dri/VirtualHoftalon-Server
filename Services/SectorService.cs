@@ -1,3 +1,4 @@
+using VirtualHoftalon_Server.Enums;
 using VirtualHoftalon_Server.Exceptions;
 using VirtualHoftalon_Server.Models;
 using VirtualHoftalon_Server.Models.Dto.Sector;
@@ -22,22 +23,24 @@ public class SectorService : ISectorService
     public SectorResponseDTO SaveSector(SectorRequestDTO sectorRequestDto)
     {
         Doctor doctorEntity = _doctorRepository.GetDoctorById(sectorRequestDto.DoctorId) ?? throw new NotFoundDoctorException("Not found Doctor!");
-        Sector sectorCreated = new Sector(null, sectorRequestDto.Name, sectorRequestDto.RoomNumber, sectorRequestDto.DoctorId, new List<Appointment>());
+        Sector sectorCreated = new Sector(null, sectorRequestDto.Name,
+            sectorRequestDto.RoomNumber, sectorRequestDto.DoctorId,
+            new List<Appointment>(), (SectorTag)sectorRequestDto.TagId);
         sectorCreated.doctor = doctorEntity;
         sectorCreated = _sectorRepository.SaveSector(sectorCreated);
-        return new SectorResponseDTO(sectorCreated.Id, sectorCreated.Name, sectorRequestDto.RoomNumber,sectorCreated.DoctorId);
+        return new SectorResponseDTO(sectorCreated.Id, sectorCreated.Name, sectorRequestDto.RoomNumber,sectorCreated.DoctorId, sectorCreated.Tag.ToString());
     }
 
     public IEnumerable<SectorResponseDTO> GetAll()
     {
         
-        return _sectorRepository.GetAll().Select(s => new SectorResponseDTO(s.Id, s.Name, s.RoomNumber, s.DoctorId)).ToList();
+        return _sectorRepository.GetAll().Select(s => new SectorResponseDTO(s.Id, s.Name, s.RoomNumber, s.DoctorId, s.Tag.ToString())).ToList();
     }
 
     public SectorResponseDTO GetOneById(int id)
     {
         Sector sectorById = _sectorRepository.GetSectorById(id) ?? throw new NotFoundSectorException(NotFoundMessage); 
-        return new SectorResponseDTO(sectorById.Id, sectorById.Name, sectorById.RoomNumber,sectorById.DoctorId);
+        return new SectorResponseDTO(sectorById.Id, sectorById.Name, sectorById.RoomNumber,sectorById.DoctorId, sectorById.Tag.ToString());
     }
 
     public SectorResponseDTO UpdateById(int id, SectorUpdateRequestDTO sectorRequestDto)
@@ -45,7 +48,7 @@ public class SectorService : ISectorService
         Sector sectorById = _sectorRepository.GetSectorById(id) ?? throw new NotFoundSectorException(NotFoundMessage);
         sectorById = UpdateSectorAttributes(sectorRequestDto, sectorById);
         sectorById = _sectorRepository.UpdateSector(sectorById);
-        return new SectorResponseDTO(sectorById.Id, sectorById.Name, sectorById.RoomNumber, sectorById.DoctorId);
+        return new SectorResponseDTO(sectorById.Id, sectorById.Name, sectorById.RoomNumber, sectorById.DoctorId, sectorById.Tag.ToString());
     }
 
     public void DeleteById(int id)
