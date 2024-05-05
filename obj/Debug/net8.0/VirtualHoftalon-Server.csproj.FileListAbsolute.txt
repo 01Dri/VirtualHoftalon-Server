@@ -674,3 +674,5 @@ C:\Users\didvg\Desktop\PROJETOS\VirtualHoftalon-Server\bin\Debug\net8.0\Verify.Q
 C:\Users\didvg\Desktop\PROJETOS\VirtualHoftalon-Server\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Management.dll
 C:\Users\didvg\Desktop\PROJETOS\VirtualHoftalon-Server\bin\Debug\net8.0\BouncyCastle.Crypto.dll
 C:\Users\didvg\Desktop\PROJETOS\VirtualHoftalon-Server\bin\Debug\net8.0\itextsharp.dll
+C:\Users\didvg\Desktop\PROJETOS\VirtualHoftalon-Server\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\didvg\Desktop\PROJETOS\VirtualHoftalon-Server\bin\Debug\net8.0\System.Security.Permissions.dll

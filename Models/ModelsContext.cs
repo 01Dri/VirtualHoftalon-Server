@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using VirtualHoftalon_Server.Models.Security;
 
 namespace VirtualHoftalon_Server.Models;
 
@@ -15,7 +16,8 @@ public class ModelsContext : DbContext
     public virtual DbSet<Sector> Sectors { get; set;}
     public virtual DbSet<Appointment> Appointments { get; set;}
     public virtual DbSet<PatientsQueue?> PatientsQueues { get; set;}
-
+    
+    public virtual DbSet<User> Users { get; set;}
     
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
