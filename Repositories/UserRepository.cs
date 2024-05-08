@@ -8,14 +8,21 @@ public class UserRepository : IUserRepository
 {
     private readonly ModelsContext _modelsContext;
 
+    public UserRepository(ModelsContext modelsContext)
+    {
+        _modelsContext = modelsContext;
+    }
+
     public User GetUserById(int? id)
     {
         throw new NotImplementedException();
     }
 
-    public User SaveUser(User? User)
+    public User SaveUser(User? user)
     {
-        throw new NotImplementedException();
+        _modelsContext.Users.Add(user);
+        _modelsContext.SaveChanges();
+        return user;
     }
 
     public IEnumerable<User> GetAll()
@@ -32,14 +39,5 @@ public class UserRepository : IUserRepository
     {
         throw new NotImplementedException();
     }
-
-    public string Login(string username, string password)
-    {
-        throw new NotImplementedException();
-    }
-
-    public string Register(User userRegister)
-    {
-        throw new NotImplementedException();
-    }
+    
 }
