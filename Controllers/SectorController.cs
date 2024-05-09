@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VirtualHoftalon_Server.Models.Dto.Sector;
 using VirtualHoftalon_Server.Services.Interfaces;
@@ -16,6 +17,7 @@ public class SectorController : Microsoft.AspNetCore.Mvc.Controller
 
     [HttpPost]
     [Route("/sectors")]
+    [Authorize(Roles = "ADMIN")]
     public IActionResult SaveSector([FromBody] SectorRequestDTO sectorRequestDto)
     {
         if (!ModelState.IsValid)
@@ -28,6 +30,7 @@ public class SectorController : Microsoft.AspNetCore.Mvc.Controller
 
     [HttpGet]
     [Route("/sectors")]
+    [Authorize]
     public IActionResult GetAllSectors()
     {
         return Ok(_sectorService.GetAll());
@@ -35,6 +38,7 @@ public class SectorController : Microsoft.AspNetCore.Mvc.Controller
     
     [HttpGet]
     [Route("/sectors/{id}")]
+    [Authorize]
     public IActionResult GetSectorById(int id)
     {
         var resultSector = _sectorService.GetOneById(id);
@@ -43,6 +47,7 @@ public class SectorController : Microsoft.AspNetCore.Mvc.Controller
 
     [HttpPatch]
     [Route("/sectors/{id}")]
+    [Authorize(Roles = "ADMIN")]
     public IActionResult UpdateSector(int id, [FromBody] SectorUpdateRequestDTO sectorUpdateRequestDto)
     {
         return Ok(_sectorService.UpdateById(id, sectorUpdateRequestDto));
@@ -50,12 +55,10 @@ public class SectorController : Microsoft.AspNetCore.Mvc.Controller
 
     [HttpDelete]
     [Route("/sectors/{id}")]
+    [Authorize(Roles = "ADMIN")]
     public IActionResult DeleteById(int id)
     {
         _sectorService.DeleteById(id);
         return NoContent();
     }
-    
-
-
 }

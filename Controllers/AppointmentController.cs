@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VirtualHoftalon_Server.Models.Dto.Appointment;
 using VirtualHoftalon_Server.Services.Interfaces;
@@ -13,6 +14,7 @@ public class AppointmentController : Microsoft.AspNetCore.Mvc.Controller
         _appointmentService = appointmentService;
     }
     
+    [Authorize]
     [HttpGet]
     [Route("/appointments")]
     public IActionResult GetAll()
@@ -22,12 +24,14 @@ public class AppointmentController : Microsoft.AspNetCore.Mvc.Controller
     
     [HttpGet]
     [Route("/appointments/{id}")]
+    [Authorize]
     public IActionResult GetById(int id)
     {
         return Ok(_appointmentService.GetOneById(id));
     }
     
     [HttpPost]
+    [Authorize(Roles = "ADMIN")]
     [Route("/appointments")]
     public IActionResult Save([FromBody] AppointmentRequestDTO appointmentRequestDto)
     {
@@ -38,6 +42,7 @@ public class AppointmentController : Microsoft.AspNetCore.Mvc.Controller
         return Ok(_appointmentService.SaveAppointment(appointmentRequestDto));
     }
     [HttpPatch]
+    [Authorize(Roles = "ADMIN")]
     [Route("/appointments/{id}")]
     public IActionResult UpdateById(int id, [FromBody] AppointmentUpdateRequestDTO appointment)
     {
@@ -45,6 +50,7 @@ public class AppointmentController : Microsoft.AspNetCore.Mvc.Controller
     }
     
     [HttpDelete]
+    [Authorize(Roles = "ADMIN")]
     [Route("/appointments/{id}")]
     public IActionResult DeleteById(int id)
     {

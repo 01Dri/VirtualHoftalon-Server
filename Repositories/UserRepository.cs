@@ -39,5 +39,15 @@ public class UserRepository : IUserRepository
     {
         throw new NotImplementedException();
     }
-    
+
+    public User GetByNamePassword(string name, string password)
+    {
+        return _modelsContext.Users.Where(u => u.Username == name && u.Password == password)
+            .FirstOrDefault();
+    }
+
+    public User GetUserByUsername(string username)
+    {
+        return _modelsContext.Users.Where(u => u.Username == username).FirstOrDefault();
+    }
 }

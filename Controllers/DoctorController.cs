@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VirtualHoftalon_Server.Models.Dto;
 using VirtualHoftalon_Server.Services.Interfaces;
@@ -15,9 +16,9 @@ public class DoctorController : Microsoft.AspNetCore.Mvc.Controller
         _doctorService = doctorService;
         _logger = logger;
     }
-
     [HttpGet]
     [Route("/doctors")]
+    [Authorize]
     public IActionResult GetAll()
     {
         return Ok(_doctorService.GetAll());
@@ -25,6 +26,7 @@ public class DoctorController : Microsoft.AspNetCore.Mvc.Controller
     
     [HttpGet]
     [Route("/doctors/{id}")]
+    [Authorize]
     public IActionResult GetById(int id)
     {
         return Ok(_doctorService.GetOneById(id));
@@ -32,6 +34,7 @@ public class DoctorController : Microsoft.AspNetCore.Mvc.Controller
     
     [HttpPost]
     [Route("/doctors")]
+    [Authorize(Roles = "ADMIN")]
     public IActionResult SaveDoctor([FromBody] DoctorRequestDTO doctorRequestDto)
     {
         if (!ModelState.IsValid)
@@ -45,6 +48,7 @@ public class DoctorController : Microsoft.AspNetCore.Mvc.Controller
     
     [HttpPatch]
     [Route("/doctors/{id}")]
+    [Authorize(Roles = "ADMIN")]
     public IActionResult UpdateDoctor(int id, [FromBody] DoctorRequestDTO doctorRequestDto)
     {
         if (!ModelState.IsValid)
@@ -58,6 +62,7 @@ public class DoctorController : Microsoft.AspNetCore.Mvc.Controller
     
     [HttpDelete]
     [Route("/doctors/{id}")]
+    [Authorize(Roles = "ADMIN")]
     public IActionResult Delete(int id)
     {
         this._doctorService.DeleteDoctorById(id);

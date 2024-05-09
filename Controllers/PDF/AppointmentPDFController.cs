@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuestPDF.Fluent;
 using VirtualHoftalon_Server.Models;
@@ -20,6 +21,7 @@ public class AppointmentPDFController : Microsoft.AspNetCore.Mvc.Controller
 
     [HttpGet]
     [Route("/appointments/pdf/{id}")]
+    [Authorize(Roles = "ADMIN")]
     public IActionResult GeneratePDFAppointmentById(int id)
     {
         Appointment? appointment = _appointmentRepository.GetAppointmentById(id);

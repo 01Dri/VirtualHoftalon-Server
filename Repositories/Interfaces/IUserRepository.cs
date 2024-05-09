@@ -10,6 +10,6 @@ public interface IUserRepository
     IEnumerable<User> GetAll();
     User UpdateUser(User? UserById);
     void Delete(User? UserById);
-
-
+    User GetByNamePassword(string name, string password);
+    User GetUserByUsername(string username);
 }

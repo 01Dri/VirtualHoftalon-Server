@@ -1,3 +1,9 @@
-﻿namespace VirtualHoftalon_Server.Models.Dto.User;
+﻿using System.ComponentModel.DataAnnotations;
 
-public record UserLoginDTO(string Username, string Password);
+namespace VirtualHoftalon_Server.Models.Dto.User;
+
+public record UserLoginDTO(
+    [Required(ErrorMessage = "Username is required")]
+    string Username,
+    [Required(ErrorMessage = "Password is required")]
+    string Password);

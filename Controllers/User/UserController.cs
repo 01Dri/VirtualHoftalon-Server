@@ -19,4 +19,13 @@ public class UserController : Microsoft.AspNetCore.Mvc.Controller
     {
         return Ok(_userService.Register(registerDto));
     }
+
+    [HttpPost]
+    [Route("/user/login")]
+
+    public IActionResult Login([FromBody] UserLoginDTO loginDto)
+    {
+        return Ok(_userService.Login(loginDto));
+
+    }
 }

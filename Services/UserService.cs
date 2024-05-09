@@ -1,6 +1,9 @@
-﻿using VirtualHoftalon_Server.Models.Dto.User;
+﻿using VirtualHoftalon_Server.Exceptions;
+using VirtualHoftalon_Server.Models.Dto.User;
 using VirtualHoftalon_Server.Models.Security;
+using VirtualHoftalon_Server.Models.Security.Dto;
 using VirtualHoftalon_Server.Repositories.Interfaces;
+using VirtualHoftalon_Server.Security;
 using VirtualHoftalon_Server.Security.interfaces;
 using VirtualHoftalon_Server.Services.Interfaces;
 
@@ -30,8 +33,17 @@ public class UserService : IUserService
         return new UserRegisterResponseDTO(user.Username, user.Role);
     }
 
-    public string Login(UserLoginDTO userLoginDto)
+    public TokenResponseDTO Login(UserLoginDTO userLoginDto)
     {
-        throw new NotImplementedException();
+
+        string passowrd = userLoginDto.Password;
+        User userByUsername = _userRepository.GetUserByUsername(userLoginDto.Username) ?? throw new NotFoundUserException("Not found user!");
+        string descryptedPassword = _passwordEncrypter.Decrypt(userByUsername.Password);
+        if (passowrd == descryptedPassword)
+        {
+            return new TokenResponseDTO(TokenService.GenerateToken(userByUsername));
+        }
+
+        throw new InvalidLoginException("Invalid login!");
     }
 }
