@@ -8,10 +8,8 @@ namespace VirtualHoftalon_Server.Security;
 
 public class TokenService
 {
-
     public static string GenerateToken(User user)
     {
-        
         JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
         byte[] key = Encoding.ASCII.GetBytes(Settings.Secret);
         SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor()
