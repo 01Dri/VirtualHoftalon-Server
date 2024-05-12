@@ -16,9 +16,8 @@ public class ModelsContext : DbContext
     public virtual DbSet<Sector> Sectors { get; set;}
     public virtual DbSet<Appointment> Appointments { get; set;}
     public virtual DbSet<PatientsQueue?> PatientsQueues { get; set;}
-    
-    public virtual DbSet<User> Users { get; set;}
-    
+    public virtual DbSet<Login> Logins { get; set;}
+
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -68,6 +67,14 @@ public class ModelsContext : DbContext
         {
             p.HasKey(k => k.Id);
             p.HasIndex(k => k.PatientId)
+                .IsUnique();
+        });
+        OnModelCreatingPartial(modelBuilder);
+        
+        modelBuilder.Entity<Login>(p =>
+        {
+            p.HasKey(k => k.Id);
+            p.HasIndex(k => k.Username)
                 .IsUnique();
         });
         OnModelCreatingPartial(modelBuilder);
