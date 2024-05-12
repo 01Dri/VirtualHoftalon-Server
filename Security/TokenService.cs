@@ -2,13 +2,14 @@
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using VirtualHoftalon_Server.Models;
 using VirtualHoftalon_Server.Models.Security;
 
 namespace VirtualHoftalon_Server.Security;
 
 public class TokenService
 {
-    public static string GenerateToken(User user)
+    public static string GenerateToken(Login login)
     {
         JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
         byte[] key = Encoding.ASCII.GetBytes(Settings.Secret);
@@ -16,8 +17,8 @@ public class TokenService
         {
             Subject = new ClaimsIdentity(new Claim[]
             {
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Role, user.Role)
+                new Claim(ClaimTypes.Name, login.Username),
+                new Claim(ClaimTypes.Role, login.Role.ToString())
             }),
             Expires = DateTime.UtcNow.AddHours(2),
             SigningCredentials =

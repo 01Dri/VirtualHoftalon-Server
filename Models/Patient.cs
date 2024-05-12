@@ -39,6 +39,9 @@ public class Patient
     public ClassificationPatient ClassificationPatient { get; set; }
 
     public virtual ICollection<Appointment> Appointments { get; set; }
+    
+    public int? LoginId { get; set; }
+    public Login? Login { get; set; }
 
 
     public Patient()

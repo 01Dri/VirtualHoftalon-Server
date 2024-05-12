@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "cOUDp+4NHAlypSbDeXNf0Gy20F8BWwlz2zR/I9ijzhuZqOAMwNnnOwiCwDodcPio1dGJCnKAZreeopczcdCQxw==",
+  "dgSpecHash": "SuEYSvS3tlqWZKQzx9Zc0lRjjOteA73FtuJ1J+cWji4MBxA4Nu99Pw8MKhDRE5jCF77Ct2O5+KsIbV8lYuk9NQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\didvg\\Desktop\\PROJETOS\\VirtualHoftalon-Server\\VirtualHoftalon-Server.csproj",
   "expectedPackageFiles": [
@@ -9,10 +9,12 @@
     "C:\\Users\\didvg\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\didvg\\.nuget\\packages\\bouncycastle\\1.8.9\\bouncycastle.1.8.9.nupkg.sha512",
     "C:\\Users\\didvg\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
+    "C:\\Users\\didvg\\.nuget\\packages\\confluent.kafka\\2.4.0\\confluent.kafka.2.4.0.nupkg.sha512",
     "C:\\Users\\didvg\\.nuget\\packages\\diffengine\\12.4.0\\diffengine.12.4.0.nupkg.sha512",
     "C:\\Users\\didvg\\.nuget\\packages\\emptyfiles\\4.6.0\\emptyfiles.4.6.0.nupkg.sha512",
     "C:\\Users\\didvg\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\didvg\\.nuget\\packages\\itextsharp\\5.5.13.3\\itextsharp.5.5.13.3.nupkg.sha512",
+    "C:\\Users\\didvg\\.nuget\\packages\\librdkafka.redist\\2.4.0\\librdkafka.redist.2.4.0.nupkg.sha512",
     "C:\\Users\\didvg\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
     "C:\\Users\\didvg\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\didvg\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
@@ -132,6 +134,16 @@
     "C:\\Users\\didvg\\.nuget\\packages\\xunit.extensibility.execution\\2.7.1\\xunit.extensibility.execution.2.7.1.nupkg.sha512"
   ],
   "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Npgsql' 8.0.2 has a known high severity vulnerability, https://github.com/advisories/GHSA-x9vc-6hfv-hg8c",
+      "libraryId": "Npgsql",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
     {
       "code": "NU1701",
       "level": "Warning",

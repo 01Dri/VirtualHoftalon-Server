@@ -77,6 +77,12 @@ namespace VirtualHoftalon_Server.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Cpf")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("LoginId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -84,7 +90,36 @@ namespace VirtualHoftalon_Server.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("LoginId");
+
                     b.ToTable("Doctors");
+                });
+
+            modelBuilder.Entity("VirtualHoftalon_Server.Models.Login", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Username")
+                        .IsUnique();
+
+                    b.ToTable("Logins");
                 });
 
             modelBuilder.Entity("VirtualHoftalon_Server.Models.Patient", b =>
@@ -111,6 +146,9 @@ namespace VirtualHoftalon_Server.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<int?>("LoginId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -133,6 +171,8 @@ namespace VirtualHoftalon_Server.Migrations
 
                     b.HasIndex("Email")
                         .IsUnique();
+
+                    b.HasIndex("LoginId");
 
                     b.HasIndex("Rg")
                         .IsUnique();
@@ -202,31 +242,6 @@ namespace VirtualHoftalon_Server.Migrations
                     b.ToTable("Sectors");
                 });
 
-            modelBuilder.Entity("VirtualHoftalon_Server.Models.Security.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-                });
-
             modelBuilder.Entity("VirtualHoftalon_Server.Models.Appointment", b =>
                 {
                     b.HasOne("VirtualHoftalon_Server.Models.Doctor", "doctor")
@@ -249,6 +264,24 @@ namespace VirtualHoftalon_Server.Migrations
                     b.Navigation("doctor");
 
                     b.Navigation("patient");
+                });
+
+            modelBuilder.Entity("VirtualHoftalon_Server.Models.Doctor", b =>
+                {
+                    b.HasOne("VirtualHoftalon_Server.Models.Login", "Login")
+                        .WithMany()
+                        .HasForeignKey("LoginId");
+
+                    b.Navigation("Login");
+                });
+
+            modelBuilder.Entity("VirtualHoftalon_Server.Models.Patient", b =>
+                {
+                    b.HasOne("VirtualHoftalon_Server.Models.Login", "Login")
+                        .WithMany()
+                        .HasForeignKey("LoginId");
+
+                    b.Navigation("Login");
                 });
 
             modelBuilder.Entity("VirtualHoftalon_Server.Models.PatientsQueue", b =>

@@ -37,6 +37,12 @@ public class DoctorRepository : IDoctorRepository
         return _context.Doctors.FirstOrDefault(d => d.Name == doctorName);
     }
 
+    public Doctor GetDoctorByCPF(string cpf)
+    {
+        return _context.Doctors.FirstOrDefault(d => d.Cpf == cpf);
+
+    }
+
     public Doctor UpdateDoctor(Doctor doctorToUpdate)
     {
         // Marca a entidade como modificada, dessa forma, o EF vai saber que ela precisa ser atualizada no banco com o metodo "SaveChanges"

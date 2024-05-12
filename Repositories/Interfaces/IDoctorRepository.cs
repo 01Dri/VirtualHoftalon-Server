@@ -10,6 +10,8 @@ public interface IDoctorRepository
     Doctor GetDoctorById(int id);
 
     Doctor GetDoctorByName(string doctorName);
+    Doctor GetDoctorByCPF(string cpf);
+
     Doctor UpdateDoctor(Doctor doctorToUpdate);
     bool DeleteDoctor(Doctor doctor);
 }
