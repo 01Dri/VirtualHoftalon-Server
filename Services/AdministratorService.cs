@@ -2,6 +2,7 @@
 using VirtualHoftalon_Server.Models;
 using VirtualHoftalon_Server.Models.Dto.Administrator;
 using VirtualHoftalon_Server.Repositories.Interfaces;
+using VirtualHoftalon_Server.Security.interfaces;
 using VirtualHoftalon_Server.Services.Interfaces;
 
 namespace VirtualHoftalon_Server.Services;
@@ -11,11 +12,13 @@ public class AdministratorService : IAdministratorService
 
     private readonly IAdministratorRepository _repository;
     private readonly ILoginRepository _loginRepository;
+    private readonly IPasswordEncrypter _passwordEncrypter;
 
-    public AdministratorService(IAdministratorRepository repository, ILoginRepository loginRepository)
+    public AdministratorService(IAdministratorRepository repository, ILoginRepository loginRepository, IPasswordEncrypter passwordEncrypter)
     {
         _repository = repository;
         _loginRepository = loginRepository;
+        _passwordEncrypter = passwordEncrypter;
     }
 
 
@@ -60,7 +63,7 @@ public class AdministratorService : IAdministratorService
     {
         Login login = new Login()
         {
-            Password = administrator.Password,
+            Password = _passwordEncrypter.Encrypt(administrator.Password),
             Role = Roles.ADMIN,
             Username = administrator.Email.Split("@")[0]
         };
