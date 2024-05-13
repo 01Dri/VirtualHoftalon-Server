@@ -49,6 +49,8 @@ builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IPatientsQueuesRepository, PatientsQueuesRepository>();
+builder.Services.AddScoped<IAdministratorRepository, AdministratorRepository>();
+
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
 builder.Services.AddScoped<IPDFGenerator, PDFGeneratorService>();
 
@@ -60,14 +62,13 @@ builder.Services.AddScoped<IRoleStrategy, RolePatientStrategy>();
 builder.Services.AddScoped<IRoleStrategy, RoleDoctorStrategy>();
 builder.Services.AddScoped<IRoleStrategyValidator, RoleStrategyValidator>();
 
-
-
-
 builder.Services.AddScoped<ISectorService, SectorService>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IPatientQueuesService, PatientQueuesService>();
+builder.Services.AddScoped<IAdministratorService, AdministratorService>();
+
 builder.Services.AddScoped<ILoginService, LoginService>();
 
 

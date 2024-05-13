@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VirtualHoftalon_Server.Models;
@@ -11,9 +12,11 @@ using VirtualHoftalon_Server.Models;
 namespace VirtualHoftalon_Server.Migrations
 {
     [DbContext(typeof(ModelsContext))]
-    partial class ModelsContextModelSnapshot : ModelSnapshot
+    [Migration("20240513144951_Adminstrator")]
+    partial class Adminstrator
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,8 +35,8 @@ namespace VirtualHoftalon_Server.Migrations
 
                     b.Property<string>("Cpf")
                         .IsRequired()
-                        .HasMaxLength(14)
-                        .HasColumnType("character varying(14)");
+                        .HasMaxLength(11)
+                        .HasColumnType("character varying(11)");
 
                     b.Property<DateTime>("DateBirth")
                         .HasColumnType("timestamp with time zone");
@@ -290,8 +293,7 @@ namespace VirtualHoftalon_Server.Migrations
                 {
                     b.HasOne("VirtualHoftalon_Server.Models.Login", "Login")
                         .WithMany()
-                        .HasForeignKey("LoginId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("LoginId");
 
                     b.Navigation("Login");
                 });
@@ -324,8 +326,7 @@ namespace VirtualHoftalon_Server.Migrations
                 {
                     b.HasOne("VirtualHoftalon_Server.Models.Login", "Login")
                         .WithMany()
-                        .HasForeignKey("LoginId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("LoginId");
 
                     b.Navigation("Login");
                 });

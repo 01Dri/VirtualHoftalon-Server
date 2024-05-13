@@ -27,6 +27,7 @@ public class LoginService : ILoginService
     public RegisterLoginResponseDTO Register(RegisterLoginDTO login)
     {
         Roles role = (Roles)Enum.Parse(typeof(Roles), login.Role);
+        // Salva um login e faz o relacionamento entre a tabela Patient ou Doctor dependendo da strategy selecionada.
         Login loginEntity = _roleStrategyValidator.SaveLoginByRole(role, login);
         return new RegisterLoginResponseDTO(loginEntity.Username, loginEntity.Role.ToString());
     }

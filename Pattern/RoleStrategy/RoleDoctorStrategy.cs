@@ -37,6 +37,9 @@ public class RoleDoctorStrategy : IRoleStrategy
 
         _repository.Save(loginEntity);
 
+
+        // Setando o relacionamento com a tabela Logins e Doctors
+
         doctorByCPF.Login = loginEntity;
         _doctorRepository.UpdateDoctor(doctorByCPF);
 

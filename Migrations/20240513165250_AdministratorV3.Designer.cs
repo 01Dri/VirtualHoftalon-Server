@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VirtualHoftalon_Server.Models;
@@ -11,9 +12,11 @@ using VirtualHoftalon_Server.Models;
 namespace VirtualHoftalon_Server.Migrations
 {
     [DbContext(typeof(ModelsContext))]
-    partial class ModelsContextModelSnapshot : ModelSnapshot
+    [Migration("20240513165250_AdministratorV3")]
+    partial class AdministratorV3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
