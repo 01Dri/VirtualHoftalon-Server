@@ -9,6 +9,7 @@ public interface IPatientService
     IEnumerable<PatientResponseDTO> GetAll();
 
     PatientResponseDTO GetOneById(int id);
+    PatientResponseDTO GetByCPF(string cpf);
 
     PatientResponseDTO UpdateById(int id, PatientUpdateRequestDTO patient);
 

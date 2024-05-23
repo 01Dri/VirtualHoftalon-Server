@@ -28,8 +28,8 @@ public class DoctorService : IDoctorService {
     {
         return _doctorRepository.GetDoctors()
             .Select(doctor => new DoctorResponseDTO(doctor.Id, doctor.Name, doctor.Appointments.Select
-                (a => new AppointmentListDTO(a.Id, a.PatientId, a.DoctorId, a.SectorId,
-                    DateFormatParser.ToTimestamp(a.Day, a.Month, a.Year, a.Hour))).ToList()))
+                (a => new AppointmentResponseDTO(a.Id, a.Name,a.PatientId, a.DoctorId, a.SectorId,
+                    DateFormatParser.ToTimestamp(a.Day, a.Month, a.Year, a.Hour), a.Description)).ToList()))
             .ToList();
     }
 
@@ -39,8 +39,8 @@ public class DoctorService : IDoctorService {
         doctor.Appointments = new List<Appointment>();
         doctor = _doctorRepository.SaveDoctor(doctor);
         return new DoctorResponseDTO(doctor.Id, doctor.Name,  doctor.Appointments.Select(a => 
-            new AppointmentListDTO(a.Id, a.PatientId, a.DoctorId, a.SectorId, 
-                DateFormatParser.ToTimestamp(a.Day, a.Month, a.Year, a.Hour))).ToList());
+            new AppointmentResponseDTO(a.Id, a.Name,a.PatientId, a.DoctorId, a.SectorId, 
+                DateFormatParser.ToTimestamp(a.Day, a.Month, a.Year, a.Hour), a.Description)).ToList());
     }
 
     public DoctorResponseDTO GetOneById(int id)
@@ -49,28 +49,29 @@ public class DoctorService : IDoctorService {
         Console.WriteLine(doctorById.Appointments);
         return new DoctorResponseDTO(doctorById.Id, doctorById.Name,
             doctorById.Appointments
-                .Select(a => new AppointmentListDTO(a.Id, a.PatientId, a.DoctorId, a.SectorId,
-                    DateFormatParser.ToTimestamp(a.Day, a.Month, a.Year, a.Hour))).ToList());
+                .Select(a =>  new AppointmentResponseDTO(a.Id, a.Name,a.PatientId, a.DoctorId, a.SectorId, 
+                    DateFormatParser.ToTimestamp(a.Day, a.Month, a.Year, a.Hour), a.Description)).ToList());
 
     }
 
 
     public DoctorResponseDTO UpdateDoctorById(int id, DoctorRequestDTO doctorRequestDto)
     {
-        
-        Doctor doctorToUpdate = _doctorRepository.GetDoctorById(id) ?? throw new NotFoundDoctorException("Not found Doctor");
+
+        Doctor doctorToUpdate =
+            _doctorRepository.GetDoctorById(id) ?? throw new NotFoundDoctorException("Not found Doctor");
         doctorToUpdate.Name = doctorRequestDto.Name;
         doctorToUpdate = _doctorRepository.UpdateDoctor(doctorToUpdate);
         return new DoctorResponseDTO(doctorToUpdate.Id, doctorToUpdate.Name,
             doctorToUpdate.Appointments
-                .Select(a => new AppointmentListDTO(a.Id, a.PatientId, a.DoctorId, a.SectorId,
-                    DateFormatParser.ToTimestamp(a.Day, a.Month, a.Year, a.Hour))).ToList());
+                .Select(a => new AppointmentResponseDTO(a.Id, a.Name, a.PatientId, a.DoctorId, a.SectorId,
+                    DateFormatParser.ToTimestamp(a.Day, a.Month, a.Year, a.Hour), a.Description)).ToList());
     }
 
     public bool DeleteDoctorById(int id)
-    {
-        Doctor doctor = _doctorRepository.GetDoctorById(id) ?? throw new NotFoundDoctorException("Not found Doctor!");
-        return _doctorRepository.DeleteDoctor(doctor);
+        {
+            Doctor doctor = _doctorRepository.GetDoctorById(id) ??
+                            throw new NotFoundDoctorException("Not found Doctor!");
+            return _doctorRepository.DeleteDoctor(doctor);
+        }
     }
-    
-}

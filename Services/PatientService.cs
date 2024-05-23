@@ -53,6 +53,12 @@ public class PatientService : IPatientService
         return toResponseDTO(patient);
     }
 
+    public PatientResponseDTO GetByCPF(string cpf)
+    {
+        Patient patient = _patientRepository.GetPatientByCpf(cpf) ?? throw new NotFoundPatientException("Not found Patient!");
+        return toResponseDTO(patient);
+    }
+
     public PatientResponseDTO UpdateById(int id, PatientUpdateRequestDTO patient)
     {
         Patient patientToUpdate = _patientRepository.GetPatientById(id) ?? throw new NotFoundPatientException("Not found Patient!");
@@ -105,9 +111,9 @@ public class PatientService : IPatientService
             patientToSave.Appointments.Select(a => this.ToAppointmentListDTO(a)).ToList());
     }
 
-    private AppointmentListDTO ToAppointmentListDTO(Appointment appointment)
+    private AppointmentResponseDTO ToAppointmentListDTO(Appointment a)
     {
-        return new AppointmentListDTO(appointment.Id, appointment.PatientId, appointment.DoctorId,appointment.SectorId,
-            DateFormatParser.ToTimestamp(appointment.Day, appointment.Month, appointment.Year, appointment.Hour));
+        return new AppointmentResponseDTO(a.Id, a.Name, a.PatientId, a.DoctorId, a.SectorId,
+            DateFormatParser.ToTimestamp(a.Day, a.Month, a.Year, a.Hour), a.Description);
     }
 }

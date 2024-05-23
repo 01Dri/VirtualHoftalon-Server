@@ -52,7 +52,7 @@ public class PatientRepository : IPatientRepository
 
     public Patient GetPatientByCpf(string cpf)
     {
-        return _context.Patients.FirstOrDefault(x => x.Cpf == cpf);
+        return _context.Patients.Include(p => p.Appointments).FirstOrDefault(x => x.Cpf == cpf);
     }
 
     public Patient UpdatePatient(Patient patientToUpdate)

@@ -14,4 +14,5 @@ public interface IAppointmentRepository
     Appointment UpdateAppointment(Appointment AppointmentById);
     void Delete(Appointment AppointmentById);
     
+    
 }

@@ -7,8 +7,10 @@ public record AdministratorRequestDTO(
     [Required(ErrorMessage = "O campo FirstName é obrigatório.")]
     [MaxLength(100, ErrorMessage = "O campo FirstName deve ter no máximo 100 caracteres.")]
     string FirstName,
+    
     [Required(ErrorMessage = "O campo LastName é obrigatório.")]
     [MaxLength(100, ErrorMessage = "O campo LastName deve ter no máximo 100 caracteres.")]
+    
     string LastName,
     [Required(ErrorMessage = "O campo Cpf é obrigatório.")]
     [StringLength(14, MinimumLength = 14, ErrorMessage = "O campo Cpf deve ter 11 caracteres.")]

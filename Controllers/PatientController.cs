@@ -46,6 +46,14 @@ public class PatientController : Microsoft.AspNetCore.Mvc.Controller
         return Ok(this._patientService.GetOneById(id));
     }
     
+    [HttpGet]
+    [Route("/patients/cpf/{cpf}")]
+    [Authorize]
+    public IActionResult GetPatientByCpf(string cpf)
+    {
+        return Ok(this._patientService.GetByCPF(cpf));
+    }
+    
     [HttpPatch]
     [Route("/patients/{id}")]
     [Authorize(Roles = "ADMIN")]

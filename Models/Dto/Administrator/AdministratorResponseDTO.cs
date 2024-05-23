@@ -1,6 +1,7 @@
 ﻿namespace VirtualHoftalon_Server.Models.Dto.Administrator;
 
-public record AdministratorResponseDTO(int Id,
+public record AdministratorResponseDTO(
+    int Id,
     string FirstName,
     string LastName,
     string Cpf,
