@@ -37,7 +37,6 @@ public class AdministratorService : IAdministratorService
             Email = administrator.Email,
             DateBirth = DateTime.Parse(administrator.DateBirth).ToUniversalTime(),
         };
-        _repository.SaveAdministrator(adminToSave);
         Login login = CreateLoginByAdminstratorDTO(administrator);
         adminToSave.Login = login;
         _repository.UpdateAdministrator(adminToSave);
@@ -65,9 +64,8 @@ public class AdministratorService : IAdministratorService
         {
             Password = _passwordEncrypter.Encrypt(administrator.Password),
             Role = Roles.ADMIN,
-            Username = administrator.Email.Split("@")[0]
+            Username = administrator.Email
         };
-        _loginRepository.Save(login);
         return login;
     }
 

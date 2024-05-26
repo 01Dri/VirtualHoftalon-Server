@@ -25,7 +25,6 @@ public class AdministratorRepository : IAdministratorRepository
         using var transaction = _context.Database.BeginTransaction();
         try
         {
-            
             _context.Administrators.Add(administrator);
             _context.SaveChanges();
             transaction.Commit();
@@ -45,10 +44,25 @@ public class AdministratorRepository : IAdministratorRepository
 
     public Administrator UpdateAdministrator(Administrator administrator)
     {
-        _context.Entry(administrator).State = EntityState.Modified;
-        _context.SaveChanges();
-        return administrator;
+        using var transaction = _context.Database.BeginTransaction();
+        try
+        {
+            var login = _context.Logins.Add(administrator.Login);
+            _context.SaveChanges();
+            administrator.Login = login.Entity;
+            administrator.LoginId = login.Entity.Id;
+            _context.Administrators.Update(administrator);
+            _context.SaveChanges();
+            transaction.Commit();
+            return administrator;
+        }
+        catch (Exception e)
+        {
+            transaction.Rollback();
+            throw new FailedToSaveLoginException("Failed to save Login" + e.Message);
+        } 
     }
+
 
     public void Delete(Administrator administrator)
     {

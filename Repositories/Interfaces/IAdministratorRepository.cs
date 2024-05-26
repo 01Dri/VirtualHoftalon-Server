@@ -13,6 +13,7 @@ public interface IAdministratorRepository
     IEnumerable<Administrator> GetAll();
     
     Administrator UpdateAdministrator(Administrator administrator);
+
     void Delete(Administrator administrator);
 
     
