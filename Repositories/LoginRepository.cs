@@ -1,4 +1,5 @@
-﻿using VirtualHoftalon_Server.Models;
+﻿using Microsoft.Data.SqlClient;
+using VirtualHoftalon_Server.Models;
 using VirtualHoftalon_Server.Repositories.Interfaces;
 
 namespace VirtualHoftalon_Server.Repositories;
@@ -13,9 +14,19 @@ public class LoginRepository : ILoginRepository
     }
     public Login Save(Login login)
     {
-        _context.Logins.Add(login);
-        _context.SaveChanges();
-        return login;
+        using var transaction = _context.Database.BeginTransaction();
+        try
+        {
+
+            _context.Logins.Add(login);
+            _context.SaveChanges();
+            return login;
+        }
+        catch (SqlException e)
+        {
+            transaction.Rollback();
+            throw new Exception(e.Message);
+        }
     }
 
     public Login GetLoginByUsernameAndPassword(string username, string password)

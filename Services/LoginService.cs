@@ -37,7 +37,6 @@ public class LoginService : ILoginService
         string password = login.Password;
         Login loginEntity = _repository.GetLoginByUsername(login.Username) ??
                             throw new NotFoundLoginEntityException("Not found login by username");
-
         string decryptedPassword = _passwordEncrypter.Decrypt(loginEntity.Password);
         if (password == decryptedPassword)
         {

@@ -1,3 +1,4 @@
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using VirtualHoftalon_Server.Models;
 using VirtualHoftalon_Server.Repositories.Interfaces;
@@ -23,10 +24,18 @@ public class SectorRepository : ISectorRepository
 
     public Sector SaveSector(Sector? sector)
     {
-
-         _modelsContext.Sectors.Add(sector);
-         _modelsContext.SaveChanges();
-         return sector;
+        using var transaction = _modelsContext.Database.BeginTransaction();
+        try
+        {
+            _modelsContext.Sectors.Add(sector);
+            _modelsContext.SaveChanges();
+            return sector;
+        }
+        catch (SqlException e)
+        {
+            transaction.Rollback();
+            throw new Exception(e.Message);
+        }
     }
 
     public IEnumerable<Sector> GetAll()

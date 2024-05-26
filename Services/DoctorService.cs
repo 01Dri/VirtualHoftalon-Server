@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Components.Sections;
-using Microsoft.VisualBasic;
 using VirtualHoftalon_Server.Exceptions;
 using VirtualHoftalon_Server.Models;
 using VirtualHoftalon_Server.Models.Dto;
@@ -27,7 +25,7 @@ public class DoctorService : IDoctorService {
     public List<DoctorResponseDTO> GetAll()
     {
         return _doctorRepository.GetDoctors()
-            .Select(doctor => new DoctorResponseDTO(doctor.Id, doctor.Name, doctor.Appointments.Select
+            .Select(doctor => new DoctorResponseDTO(doctor.Id, doctor.Cpf,doctor.Name, doctor.Appointments.Select
                 (a => new AppointmentResponseDTO(a.Id, a.Name,a.PatientId, a.DoctorId, a.SectorId,
                     DateFormatParser.ToTimestamp(a.Day, a.Month, a.Year, a.Hour), a.Description)).ToList()))
             .ToList();
@@ -38,19 +36,23 @@ public class DoctorService : IDoctorService {
         Doctor doctor = new Doctor(null, doctorRequestDto.Name);
         doctor.Appointments = new List<Appointment>();
         doctor = _doctorRepository.SaveDoctor(doctor);
-        return new DoctorResponseDTO(doctor.Id, doctor.Name,  doctor.Appointments.Select(a => 
-            new AppointmentResponseDTO(a.Id, a.Name,a.PatientId, a.DoctorId, a.SectorId, 
-                DateFormatParser.ToTimestamp(a.Day, a.Month, a.Year, a.Hour), a.Description)).ToList());
+        return ToResponseDTO(doctor);
+
     }
 
     public DoctorResponseDTO GetOneById(int id)
     {
         Doctor doctorById = _doctorRepository.GetDoctorById(id) ?? throw new NotFoundDoctorException("Not found Doctor!");
         Console.WriteLine(doctorById.Appointments);
-        return new DoctorResponseDTO(doctorById.Id, doctorById.Name,
-            doctorById.Appointments
-                .Select(a =>  new AppointmentResponseDTO(a.Id, a.Name,a.PatientId, a.DoctorId, a.SectorId, 
-                    DateFormatParser.ToTimestamp(a.Day, a.Month, a.Year, a.Hour), a.Description)).ToList());
+        return ToResponseDTO(doctorById);
+
+    }
+
+    public DoctorResponseDTO GetByUsernameLogin(string username)
+    {
+        Doctor doctor =
+            _doctorRepository.GetDoctorByUsernameLogin(username) ?? throw new NotFoundDoctorException("Not found Doctor");
+        return ToResponseDTO(doctor);
 
     }
 
@@ -62,8 +64,13 @@ public class DoctorService : IDoctorService {
             _doctorRepository.GetDoctorById(id) ?? throw new NotFoundDoctorException("Not found Doctor");
         doctorToUpdate.Name = doctorRequestDto.Name;
         doctorToUpdate = _doctorRepository.UpdateDoctor(doctorToUpdate);
-        return new DoctorResponseDTO(doctorToUpdate.Id, doctorToUpdate.Name,
-            doctorToUpdate.Appointments
+        return ToResponseDTO(doctorToUpdate);
+    }
+
+    private DoctorResponseDTO ToResponseDTO(Doctor doctor)
+    {
+        return new DoctorResponseDTO(doctor.Id, doctor.Cpf,doctor.Name,
+            doctor.Appointments
                 .Select(a => new AppointmentResponseDTO(a.Id, a.Name, a.PatientId, a.DoctorId, a.SectorId,
                     DateFormatParser.ToTimestamp(a.Day, a.Month, a.Year, a.Hour), a.Description)).ToList());
     }
@@ -74,4 +81,5 @@ public class DoctorService : IDoctorService {
                             throw new NotFoundDoctorException("Not found Doctor!");
             return _doctorRepository.DeleteDoctor(doctor);
         }
+    
     }

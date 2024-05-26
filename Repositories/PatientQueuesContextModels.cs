@@ -26,7 +26,8 @@ public class PatientQueuesContextModels : IPatientQueuesContextModels
 
     public PatientsQueue SavePatientsQueue(PatientsQueue patients)
     {
-        {
+            using var transaction = _modelsContext.Database.BeginTransaction();
+            
             try
             {
                 _modelsContext.PatientsQueues.Add(patients);
@@ -36,6 +37,7 @@ public class PatientQueuesContextModels : IPatientQueuesContextModels
             catch (DbUpdateException ex)
             {
                 {
+                    transaction.Rollback();
                     var innerException = ex.InnerException as SqlException;
                     if (innerException != null &&
                         innerException.Number == 2601) // Número do erro para violação de chave única
@@ -46,7 +48,6 @@ public class PatientQueuesContextModels : IPatientQueuesContextModels
                     throw new Exception(ex.Message);
                 }
             }
-        }   
     }
 
     public PatientsQueue? GetPatientsQueueById(int? id)

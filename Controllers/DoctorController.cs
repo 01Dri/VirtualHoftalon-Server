@@ -32,6 +32,14 @@ public class DoctorController : Microsoft.AspNetCore.Mvc.Controller
         return Ok(_doctorService.GetOneById(id));
     }
     
+    [HttpGet]
+    [Route("/doctors/username/{username}")]
+    [Authorize]
+    public IActionResult GetByUsernameLogin(string username)
+    {
+        return Ok(_doctorService.GetByUsernameLogin(username));
+    }
+    
     [HttpPost]
     [Route("/doctors")]
     [Authorize(Roles = "ADMIN")]

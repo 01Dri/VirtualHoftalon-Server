@@ -29,6 +29,8 @@ public class AppointmentRepository : IAppointmentRepository
 
     public Appointment SaveAppointment(Appointment appointment)
     {
+        
+        using var transaction = _modelsContext.Database.BeginTransaction();
         try
         {
 
@@ -38,6 +40,7 @@ public class AppointmentRepository : IAppointmentRepository
         } catch (DbUpdateException ex)
         {
             {
+                transaction.Rollback();
                 var innerException = ex.InnerException as SqlException;
                 if (innerException != null &&
                     innerException.Number == 2601) // Número do erro para violação de chave única

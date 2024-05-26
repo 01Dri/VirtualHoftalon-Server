@@ -1,3 +1,4 @@
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using VirtualHoftalon_Server.Exceptions;
 using VirtualHoftalon_Server.Models;
@@ -21,9 +22,20 @@ public class DoctorRepository : IDoctorRepository
 
     public Doctor SaveDoctor(Doctor doctor)
     {
-        _context.Doctors.Add(doctor);
-        _context.SaveChanges();
-        return doctor;
+        using var transaction = _context.Database.BeginTransaction();
+        try
+        {
+
+
+            _context.Doctors.Add(doctor);
+            _context.SaveChanges();
+            return doctor;
+        }
+        catch (SqlException e)
+        {
+            transaction.Rollback();
+            throw new Exception(e.Message);
+        }
     }
 
     public Doctor GetDoctorById(int id)
@@ -35,6 +47,13 @@ public class DoctorRepository : IDoctorRepository
     public Doctor GetDoctorByName(string doctorName)
     {
         return _context.Doctors.FirstOrDefault(d => d.Name == doctorName);
+    }
+
+    public Doctor GetDoctorByUsernameLogin(string username)
+    {
+        return _context.Doctors.Include(d => d.Appointments)
+            .Where(d => d.Login.Username == username)
+            .FirstOrDefault();
     }
 
     public Doctor GetDoctorByCPF(string cpf)

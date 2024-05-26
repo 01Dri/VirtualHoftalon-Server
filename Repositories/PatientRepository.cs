@@ -23,6 +23,7 @@ public class PatientRepository : IPatientRepository
 
     public Patient SavePatient(Patient patient)
     {
+        using var transaction = _context.Database.BeginTransaction();
         try
         {
             _context.Patients.Add(patient);
@@ -31,7 +32,7 @@ public class PatientRepository : IPatientRepository
         }
         catch (DbUpdateException ex)
         {
-            {
+            transaction.Rollback();
                 var innerException = ex.InnerException as SqlException;
                 if (innerException != null &&
                     innerException.Number == 2601) // Número do erro para violação de chave única
@@ -42,7 +43,6 @@ public class PatientRepository : IPatientRepository
                 throw new Exception(ex.Message);
             }
         }
-    }
 
     public Patient GetPatientById(int? id)
     {

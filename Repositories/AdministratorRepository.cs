@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using VirtualHoftalon_Server.Exceptions;
 using VirtualHoftalon_Server.Models;
 using VirtualHoftalon_Server.Repositories.Interfaces;
 
@@ -21,9 +22,20 @@ public class AdministratorRepository : IAdministratorRepository
 
     public Administrator SaveAdministrator(Administrator administrator)
     {
-        _context.Administrators.Add(administrator);
-        _context.SaveChanges();
-        return administrator;
+        using var transaction = _context.Database.BeginTransaction();
+        try
+        {
+            
+            _context.Administrators.Add(administrator);
+            _context.SaveChanges();
+            transaction.Commit();
+            return administrator;
+        }
+        catch (Exception e)
+        {
+            transaction.Rollback();
+            throw new FailedToSaveLoginException("Failed to save Login");
+        } 
     }
 
     public IEnumerable<Administrator> GetAll()
