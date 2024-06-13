@@ -48,6 +48,11 @@ public class AdministratorService : IAdministratorService
         throw new NotImplementedException();
     }
 
+    public AdministratorResponseDTO GetOneByLoginId(int id)
+    {
+        return ToResponseDTO(_repository.GetByLoginId(id));
+    }
+
     public AdministratorResponseDTO Update(int id, AdministratorRequestDTO administrator)
     {
         throw new NotImplementedException();

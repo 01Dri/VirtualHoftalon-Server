@@ -42,6 +42,12 @@ public class AdministratorRepository : IAdministratorRepository
         return _context.Administrators.Include(a => a.Login).ToList();
     }
 
+    public Administrator GetByLoginId(int id)
+    {
+        return _context.Administrators.Include(a => a.Login)
+            .Where(adm => adm.Login.Id == id).FirstOrDefault();
+    }
+
     public Administrator UpdateAdministrator(Administrator administrator)
     {
         using var transaction = _context.Database.BeginTransaction();

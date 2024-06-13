@@ -40,7 +40,7 @@ public class LoginService : ILoginService
         string decryptedPassword = _passwordEncrypter.Decrypt(loginEntity.Password);
         if (password == decryptedPassword)
         {
-            return new LoginResponseDTO(loginEntity.Username, loginEntity.Role.ToString(),
+            return new LoginResponseDTO(loginEntity.Id,loginEntity.Username, loginEntity.Role.ToString(),
                 TokenService.GenerateToken(loginEntity));
         }
         throw new InvalidLoginException("Invalid login!");

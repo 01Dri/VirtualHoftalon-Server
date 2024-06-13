@@ -7,6 +7,8 @@ public interface IAdministratorService
     List<AdministratorResponseDTO> GetAll();
     AdministratorResponseDTO Save(AdministratorRequestDTO administrator);
     AdministratorResponseDTO GetOneById(int id);
+    AdministratorResponseDTO GetOneByLoginId(int id);
+    
     AdministratorResponseDTO Update(int id, AdministratorRequestDTO administrator);
     bool DeleteById(int id);
 }

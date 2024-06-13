@@ -12,6 +12,8 @@ public interface IAdministratorRepository
 
     IEnumerable<Administrator> GetAll();
     
+    Administrator GetByLoginId(int id);
+
     Administrator UpdateAdministrator(Administrator administrator);
 
     void Delete(Administrator administrator);

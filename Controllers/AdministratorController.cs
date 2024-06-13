@@ -23,6 +23,24 @@ public class AdministratorController : Microsoft.AspNetCore.Mvc.Controller
         return Ok(_service.GetAll());
     }
     
+    [HttpGet]
+    [Authorize(Roles = ("ADMIN"))]
+    [Route("/admins/{id}")]
+    public IActionResult GetById(int id)    
+    {
+        return Ok(_service.GetOneById(id));
+    }
+    
+       
+    [HttpGet]
+    [Authorize(Roles = ("ADMIN"))]
+    [Route("/admins/login/{id}")]
+    public IActionResult GetByLoginId(int id)    
+    {
+        return Ok(_service.GetOneByLoginId(id));
+    }
+    
+    
     
     // Proteger para apenas IPs especifos utilizar esse endpoint
     [HttpPost]
