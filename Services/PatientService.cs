@@ -59,6 +59,12 @@ public class PatientService : IPatientService
         return toResponseDTO(patient);
     }
 
+    public PatientResponseDTO GetByEmail(string email)
+    {
+        Patient patient = _patientRepository.GetPatientByEmail(email) ?? throw new NotFoundPatientException("Not found Patient!");
+        return toResponseDTO(patient);
+    }
+
     public PatientResponseDTO UpdateById(int id, PatientUpdateRequestDTO patient)
     {
         Patient patientToUpdate = _patientRepository.GetPatientById(id) ?? throw new NotFoundPatientException("Not found Patient!");

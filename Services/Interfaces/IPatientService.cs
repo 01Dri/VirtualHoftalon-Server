@@ -10,6 +10,7 @@ public interface IPatientService
 
     PatientResponseDTO GetOneById(int id);
     PatientResponseDTO GetByCPF(string cpf);
+    PatientResponseDTO GetByEmail(string email);
 
     PatientResponseDTO UpdateById(int id, PatientUpdateRequestDTO patient);
 

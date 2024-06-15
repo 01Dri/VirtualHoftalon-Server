@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VirtualHoftalon-Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9ec2072071d5f6907bf127e033240ceb73a25f6d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8e554485a05a0297c6d9111432d9bf82cf79dfd0")]
 [assembly: System.Reflection.AssemblyProductAttribute("VirtualHoftalon-Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VirtualHoftalon-Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

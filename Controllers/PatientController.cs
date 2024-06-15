@@ -54,6 +54,15 @@ public class PatientController : Microsoft.AspNetCore.Mvc.Controller
         return Ok(this._patientService.GetByCPF(cpf));
     }
     
+    [HttpGet]
+    [Route("/patients/email/{email}")]
+    [Authorize]
+    public IActionResult GetPatientByEmail(string email)
+    {
+        return Ok(this._patientService.GetByEmail(email));
+    }
+    
+    
     [HttpPatch]
     [Route("/patients/{id}")]
     [Authorize(Roles = "ADMIN")]

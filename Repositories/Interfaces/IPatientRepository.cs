@@ -11,6 +11,8 @@ public interface IPatientRepository
     Patient GetPatientById(int? id);
 
     Patient GetPatientByCpf(string cpf);
+    Patient GetPatientByEmail(string enail);
+
     Patient UpdatePatient(Patient patientToUpdate);
     bool DeletePatient(Patient patient);
     

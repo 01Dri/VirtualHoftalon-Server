@@ -28,6 +28,7 @@ public class PatientRepository : IPatientRepository
         {
             _context.Patients.Add(patient);
             _context.SaveChanges();
+            transaction.Commit();
             return patient;
         }
         catch (DbUpdateException ex)
@@ -53,6 +54,11 @@ public class PatientRepository : IPatientRepository
     public Patient GetPatientByCpf(string cpf)
     {
         return _context.Patients.Include(p => p.Appointments).FirstOrDefault(x => x.Cpf == cpf);
+    }
+
+    public Patient GetPatientByEmail(string enail)
+    {
+        return _context.Patients.Include(p => p.Appointments).FirstOrDefault(x => x.Email == enail);
     }
 
     public Patient UpdatePatient(Patient patientToUpdate)

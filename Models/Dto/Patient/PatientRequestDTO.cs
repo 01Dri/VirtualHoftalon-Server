@@ -12,7 +12,7 @@ namespace VirtualHoftalon_Server.Models.Dto.Patient
         string Phone,
 
         [Required(ErrorMessage = "O campo CPF é obrigatório.")]
-        [StringLength(11, MinimumLength = 11, ErrorMessage = "O CPF deve conter 11 caracteres.")]
+        [StringLength(14, MinimumLength = 8, ErrorMessage = "O CPF deve conter 14 caracteres.")]
         string Cpf,
 
         [Required(ErrorMessage = "O campo RG é obrigatório.")]
