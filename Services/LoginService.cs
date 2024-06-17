@@ -50,4 +50,26 @@ public class LoginService : ILoginService
         }
         throw new InvalidLoginException("Invalid login!");
     }
+
+    public LoginResponseDTO? RefreshToken(RefreshTokenRequestDTO refreshTokenRequestDto)
+    {
+        Guid result;
+        if (!Guid.TryParse(refreshTokenRequestDto.refreshToken, out result))
+        {
+            throw new InvalidRefreshToken("Refresh token is invalid!");
+        }
+        
+        Models.Login loginEntity = _repository.GetLoginById(refreshTokenRequestDto.loginId) ??
+                                   throw new NotFoundLoginEntityException("Not found login by id!");
+        if (loginEntity.RefreshToken == refreshTokenRequestDto.refreshToken)
+        {
+            TokenResponseDTO tokenResponseDto = TokenService.GenerateToken(loginEntity);
+            loginEntity.RefreshToken = tokenResponseDto.refreshToken;
+            this._repository.Update(loginEntity);
+            return new LoginResponseDTO(loginEntity.Id, loginEntity.Username, loginEntity.Role.ToString(),
+                tokenResponseDto);
+        }
+        throw new InvalidRefreshToken("Incorrect refresh token!");
+    }
+    
 }

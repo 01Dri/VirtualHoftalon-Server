@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using VirtualHoftalon_Server.Exceptions;
 using VirtualHoftalon_Server.Models.Dto;
+using VirtualHoftalon_Server.Models.Security.Dto;
 using VirtualHoftalon_Server.Services.Interfaces;
 
 namespace VirtualHoftalon_Server.Controller.User;
@@ -33,5 +35,16 @@ public class LoginController : Microsoft.AspNetCore.Mvc.Controller
             return BadRequest(ModelState);
         }
         return Ok(_loginService.Login(loginDto));
+    }
+    
+    [HttpPost]
+    [Route("/login/refreshtoken")]
+    public IActionResult RefreshToken([FromBody] RefreshTokenRequestDTO refreshTokenRequestDto)
+    {
+        if (string.IsNullOrEmpty(refreshTokenRequestDto.refreshToken) || refreshTokenRequestDto.loginId == null)
+        {
+            throw new InvalidRefreshToken("Refresh token or LoginId don't be null");
+        }
+        return Ok(_loginService.RefreshToken(refreshTokenRequestDto));
     }
 }

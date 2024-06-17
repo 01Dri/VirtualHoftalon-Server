@@ -9,4 +9,5 @@ public interface ILoginRepository
     Login GetLoginByUsername(string Username);
     Login Update(Login login);
 
+    Login GetLoginById(int? loginId);
 }

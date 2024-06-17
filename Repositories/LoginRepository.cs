@@ -60,4 +60,9 @@ public class LoginRepository : ILoginRepository
             throw new Exception(e.Message);
         }
     }
+
+    public Login GetLoginById(int? loginId)
+    {
+        return _context.Logins.Where(l => l.Id == loginId).FirstOrDefault();
+    }
 }
