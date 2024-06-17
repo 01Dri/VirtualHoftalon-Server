@@ -2,6 +2,7 @@
 using VirtualHoftalon_Server.Exceptions;
 using VirtualHoftalon_Server.Models;
 using VirtualHoftalon_Server.Models.Dto;
+using VirtualHoftalon_Server.Models.Security.Dto;
 using VirtualHoftalon_Server.Pattern;
 using VirtualHoftalon_Server.Repositories.Interfaces;
 using VirtualHoftalon_Server.Security;
@@ -29,6 +30,7 @@ public class LoginService : ILoginService
         Roles role = (Roles)Enum.Parse(typeof(Roles), login.Role);
         // Salva um login e faz o relacionamento entre a tabela Patient ou Doctor dependendo da strategy selecionada.
         Login loginEntity = _roleStrategyValidator.SaveLoginByRole(role, login);
+        
         return new RegisterLoginResponseDTO(loginEntity.Username, loginEntity.Role.ToString());
     }
 
@@ -40,8 +42,11 @@ public class LoginService : ILoginService
         string decryptedPassword = _passwordEncrypter.Decrypt(loginEntity.Password);
         if (password == decryptedPassword)
         {
-            return new LoginResponseDTO(loginEntity.Id,loginEntity.Username, loginEntity.Role.ToString(),
-                TokenService.GenerateToken(loginEntity));
+            TokenResponseDTO tokenResponseDto = TokenService.GenerateToken(loginEntity);
+            loginEntity.RefreshToken = tokenResponseDto.refreshToken;
+            this._repository.Update(loginEntity);
+            return new LoginResponseDTO(loginEntity.Id, loginEntity.Username, loginEntity.Role.ToString(),
+                tokenResponseDto);
         }
         throw new InvalidLoginException("Invalid login!");
     }

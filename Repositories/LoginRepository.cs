@@ -20,6 +20,7 @@ public class LoginRepository : ILoginRepository
 
             _context.Logins.Add(login);
             _context.SaveChanges();
+            transaction.Commit();
             return login;
         }
         catch (SqlException e)
@@ -39,5 +40,24 @@ public class LoginRepository : ILoginRepository
     public Login GetLoginByUsername(string username)
     {
         return _context.Logins.Where(l => l.Username == username).FirstOrDefault();
+    }
+
+    public Login Update(Login login)
+    {
+
+        using var transaction = _context.Database.BeginTransaction();
+        try
+        {
+
+            _context.Logins.Update(login);
+            _context.SaveChanges();
+            transaction.Commit();
+            return login;
+        }
+        catch (SqlException e)
+        {
+            transaction.Rollback();
+            throw new Exception(e.Message);
+        }
     }
 }
