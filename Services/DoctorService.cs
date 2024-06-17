@@ -11,13 +11,11 @@ namespace VirtualHoftalon_Server.Services;
 public class DoctorService : IDoctorService {
 
     private readonly IDoctorRepository _doctorRepository;
-    private readonly ISectorRepository _sectorRepository;
     private readonly ILogger<DoctorService> _logger;
 
-    public DoctorService(IDoctorRepository doctorRepository, ISectorRepository sectorRepository, ILogger<DoctorService> logger)
+    public DoctorService(IDoctorRepository doctorRepository, ILogger<DoctorService> logger)
     {
         _doctorRepository = doctorRepository;
-        _sectorRepository = sectorRepository;
         _logger = logger;
     }
 
@@ -26,7 +24,8 @@ public class DoctorService : IDoctorService {
     {
         return _doctorRepository.GetDoctors()
             .Select(doctor => new DoctorResponseDTO(doctor.Id, doctor.Cpf,doctor.Name, doctor.Appointments.Select
-                (a => new AppointmentResponseDTO(a.Id, a.Name,a.PatientId, a.DoctorId, a.SectorId,
+                (a => new AppointmentResponseDTO(a.Id, a.Name,a.PatientId, a.DoctorId,doctor.Name, a.SectorId,
+                    a.Sector.Name,
                     DateFormatParser.ToTimestamp(a.Day, a.Month, a.Year, a.Hour), a.Description)).ToList()))
             .ToList();
     }
@@ -43,7 +42,6 @@ public class DoctorService : IDoctorService {
     public DoctorResponseDTO GetOneById(int id)
     {
         Doctor doctorById = _doctorRepository.GetDoctorById(id) ?? throw new NotFoundDoctorException("Not found Doctor!");
-        Console.WriteLine(doctorById.Appointments);
         return ToResponseDTO(doctorById);
 
     }
@@ -71,7 +69,10 @@ public class DoctorService : IDoctorService {
     {
         return new DoctorResponseDTO(doctor.Id, doctor.Cpf,doctor.Name,
             doctor.Appointments
-                .Select(a => new AppointmentResponseDTO(a.Id, a.Name, a.PatientId, a.DoctorId, a.SectorId,
+                .Select(a => new AppointmentResponseDTO(a.Id, a.Name, a.PatientId, a.DoctorId ,
+                    doctor.Name,a.SectorId,
+                    a.Sector.Name
+                    ,
                     DateFormatParser.ToTimestamp(a.Day, a.Month, a.Year, a.Hour), a.Description)).ToList());
     }
 

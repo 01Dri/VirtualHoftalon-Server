@@ -38,7 +38,7 @@ public class DoctorRepository : IDoctorRepository
         }
     }
 
-    public Doctor GetDoctorById(int id)
+    public Doctor GetDoctorById(int? id)
     {
         return _context.Doctors.Include(d => d.Appointments)
             .FirstOrDefault(x => x.Id == id);

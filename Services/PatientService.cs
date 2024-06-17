@@ -119,7 +119,7 @@ public class PatientService : IPatientService
 
     private AppointmentResponseDTO ToAppointmentListDTO(Appointment a)
     {
-        return new AppointmentResponseDTO(a.Id, a.Name, a.PatientId, a.DoctorId, a.SectorId,
+        return new AppointmentResponseDTO(a.Id, a.Name, a.PatientId, a.DoctorId, a.doctor.Name,a.SectorId,a.Sector.Name,
             DateFormatParser.ToTimestamp(a.Day, a.Month, a.Year, a.Hour), a.Description);
     }
 }

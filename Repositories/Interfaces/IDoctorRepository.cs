@@ -7,7 +7,7 @@ public interface IDoctorRepository
     IEnumerable<Doctor?> GetDoctors();
     Doctor SaveDoctor(Doctor doctor);
 
-    Doctor GetDoctorById(int id);
+    Doctor GetDoctorById(int? id);
 
     Doctor GetDoctorByName(string doctorName);
     Doctor GetDoctorByUsernameLogin(string username);
