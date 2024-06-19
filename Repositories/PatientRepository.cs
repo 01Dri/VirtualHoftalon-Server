@@ -34,14 +34,7 @@ public class PatientRepository : IPatientRepository
         catch (DbUpdateException ex)
         {
             transaction.Rollback();
-                var innerException = ex.InnerException as SqlException;
-                if (innerException != null &&
-                    innerException.Number == 2601) // Número do erro para violação de chave única
-                {
-                    throw new UniqueConstrangeException("Chave unica violada!");
-                }
-
-                throw new Exception(ex.Message);
+                throw new UniqueConstrangeException("Chave unica violada!");
             }
         }
 
