@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using VirtualHoftalon_Server.Validates;
 
 namespace VirtualHoftalon_Server.Models.Dto.Patient
 {
@@ -12,10 +13,11 @@ namespace VirtualHoftalon_Server.Models.Dto.Patient
         string Phone,
 
         [Required(ErrorMessage = "O campo CPF é obrigatório.")]
-        [StringLength(14, MinimumLength = 8, ErrorMessage = "O CPF deve conter 14 caracteres.")]
+        [ValidateCpf(ErrorMessage = "Precisa ter 11 caracteres '. e - não contam'")]
         string Cpf,
 
         [Required(ErrorMessage = "O campo RG é obrigatório.")]
+        [ValidateRg(ErrorMessage = "Precisa ter 9 caracteres '. e - não contam'")]
         string Rg,
 
         [Required(ErrorMessage = "O campo Email é obrigatório.")]
