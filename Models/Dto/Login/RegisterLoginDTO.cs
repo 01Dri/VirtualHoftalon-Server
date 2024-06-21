@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using VirtualHoftalon_Server.Validates;
 
 namespace VirtualHoftalon_Server.Models.Dto;
 

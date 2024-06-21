@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using VirtualHoftalon_Server.Enums;
+using VirtualHoftalon_Server.Validates;
 
 namespace VirtualHoftalon_Server.Models;
 
@@ -19,11 +20,11 @@ public class Patient
     public string PhoneNumber { get; set; }
 
     [Required(ErrorMessage = "O campo Cpf é obrigatório.")]
-    [StringLength(11, MinimumLength = 11, ErrorMessage = "O campo Cpf deve ter 11 caracteres.")]
+    [ValidateCpf(ErrorMessage = "Precisa ter 11 caracteres '. e - não contam'")]
     public string Cpf { get; set; }
 
     [Required(ErrorMessage = "O campo Rg é obrigatório.")]
-    [MaxLength(20, ErrorMessage = "O campo Rg deve ter no máximo 20 caracteres.")]
+    [ValidateRg(ErrorMessage = "Precisa ter 9 caracteres '. e - não contam'")]
     public string Rg { get; set; }
 
     [Required(ErrorMessage = "O campo Email é obrigatório.")]

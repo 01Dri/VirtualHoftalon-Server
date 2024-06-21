@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\didvg\\Desktop\\PROJETOS\\VirtualHoftalon-Server\\VirtualHoftalon-Server.csproj": {}
+    "/home/ego/src/github.com/egotting/VirtualHoftalon-Server/VirtualHoftalon-Server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\didvg\\Desktop\\PROJETOS\\VirtualHoftalon-Server\\VirtualHoftalon-Server.csproj": {
+    "/home/ego/src/github.com/egotting/VirtualHoftalon-Server/VirtualHoftalon-Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\didvg\\Desktop\\PROJETOS\\VirtualHoftalon-Server\\VirtualHoftalon-Server.csproj",
+        "projectUniqueName": "/home/ego/src/github.com/egotting/VirtualHoftalon-Server/VirtualHoftalon-Server.csproj",
         "projectName": "VirtualHoftalon-Server",
-        "projectPath": "C:\\Users\\didvg\\Desktop\\PROJETOS\\VirtualHoftalon-Server\\VirtualHoftalon-Server.csproj",
-        "packagesPath": "C:\\Users\\didvg\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\didvg\\Desktop\\PROJETOS\\VirtualHoftalon-Server\\obj\\",
+        "projectPath": "/home/ego/src/github.com/egotting/VirtualHoftalon-Server/VirtualHoftalon-Server.csproj",
+        "packagesPath": "/home/ego/.nuget/packages/",
+        "outputPath": "/home/ego/src/github.com/egotting/VirtualHoftalon-Server/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\didvg\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/ego/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -122,6 +120,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.6, 8.0.6]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -130,7 +134,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.106/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

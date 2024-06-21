@@ -183,8 +183,7 @@ namespace VirtualHoftalon_Server.Migrations
 
                     b.Property<string>("Cpf")
                         .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("character varying(11)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("DateBirth")
                         .HasColumnType("timestamp with time zone");
@@ -209,8 +208,7 @@ namespace VirtualHoftalon_Server.Migrations
 
                     b.Property<string>("Rg")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
